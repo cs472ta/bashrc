@@ -56,9 +56,9 @@ alias hibernate="systemctl hibernate -i"
 alias suspend="sudo pkill -f sshfs && systemctl suspend -i"
 alias wanip='dig @resolver1.opendns.com ANY myip.opendns.com +short'
 alias sudo='sudo '
-alias omon='/usr/local/bin/onedrive --syncdir $ONEDRIVE --monitor  > ~/onedrive_manual.log'
+alias omon='/usr/local/bin/onedrive --syncdir $ONEDRIVE --monitor  > /home/$USER/bashrc/onedrive/onedrive_manual.log'
 alias osync='/usr/local/bin/onedrive --synchronize --syncdir $ONEDRIVE'
-alias osync_log='osync > ~/onedrive_manual.log'
+alias osync_log='osync > /home/$USER/bashrc/onedrive/onedrive_manual.log'
 alias reset_mouse="sudo modprobe -r psmouse && sudo mode probe psmouse"
 alias enable_suspend='sudo sh -c "echo XHC > /proc/acpi/wakeup"'
 alias pdf_studio='rm -r /home/${USER}/.pdfstudio12' #&& cp -r /home/${USER}/.pdfstudio12_backup/ /home/${USER}/.pdfstudio12/'
@@ -66,7 +66,7 @@ alias unlock='$ONEDRIVE/Documents/Notes for Tools/Linux/scripts/pdf/unlock_all_i
 alias trash='cd ~/.local/share/Trash'
 alias count="ls -1 | wc -l"
 alias cps="xsel -b < " # copy to text
-alias onedrivef="onedrive --syncdir $ONEDRIVE --monitor > ~/onedrive_manual.log --check-for-nosync"
+alias onedrivef="onedrive --syncdir $ONEDRIVE --monitor > /home/$USER/bashrc/onedrive/onedrive_manual.log --check-for-nosync"
 #find . -type f -name '*.sh' -print0 | xargs -0 sed -i 's|--ntasks=28|--ntasks=8|g'
 alias docker="sudo docker "
 alias np="notepadqq "
@@ -181,9 +181,10 @@ alias server="ping 192.168.187.100"
 
 ## SSH
 alias schizo="ssh tarch@schizo.cs.byu.edu"
+alias dalai="ssh taylor@192.168.187.2"
 #alias super="ssh tarch@ssh.fsl.byu.edu"
 alias super="~/bashrc/super/super.sh"
-alias super2='~/taylors_scripts/super2.sh'
+alias super2='/home/$USER/bashrc/super/super2.sh'
 alias kant="ssh -t tarch@schizo.cs.byu.edu 'ssh taylor@192.168.29.56'"
 alias brodie="ssh -t tarch@schizo.cs.byu.edu 'ssh taylor@192.168.29.8'"
 alias kant_port="ssh -t -L 13389:localhost:3389 tarch@schizo.cs.byu.edu ssh -L 3389:localhost:3389 taylor@192.168.29.56 && sleep 4"
