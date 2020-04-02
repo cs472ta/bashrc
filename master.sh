@@ -3,15 +3,15 @@ export "PATH=$PATH:~/bashrc/bin" # add standard command binaries
 
 # Script to install bashrc to bashrc
 # Computer specific paths
-source "./configs/${HOSTNAME}.sh"
-source "./super/secure.sh"
-source "./secure.sh"
-source /home/taylor/bashrc/scripts/vpn
+source "/home/${USER}/bashrc/configs/${HOSTNAME}.sh"
+source "/home/${USER}/bashrc/super/secure.sh"
+source "/home/${USER}/bashrc/secure/secure.sh"
+source /home/${USER}/bashrc/scripts/vpn
 
 alias py="source ./venv/bin/activate"
 alias venv="virtualenv -p python3 venv"
-alias munit="cd '/media/taylor/Data/PyCharm Projects/MUNIT'"
-alias github="cd '$GITHUBGithub'"
+alias munit="cd '/media/${USER}/Data/PyCharm Projects/MUNIT'"
+alias github="cd '$GITHUB/Github'"
 alias hibernate="systemctl hibernate -i"
 
 # Python
@@ -53,10 +53,10 @@ alias osync='/usr/local/bin/onedrive --synchronize --syncdir $ONEDRIVE'
 alias osync_log='osync > ~/onedrive_manual.log'
 alias reset_mouse="sudo modprobe -r psmouse && sudo mode probe psmouse"
 alias enable_suspend='sudo sh -c "echo XHC > /proc/acpi/wakeup"'
-alias pdf_studio='rm -r /home/taylor/.pdfstudio12' #&& cp -r /home/taylor/.pdfstudio12_backup/ /home/taylor/.pdfstudio12/'
+alias pdf_studio='rm -r /home/${USER}/.pdfstudio12' #&& cp -r /home/${USER}/.pdfstudio12_backup/ /home/${USER}/.pdfstudio12/'
 alias unlock='$ONEDRIVE/Documents/Notes for Tools/Linux/scripts/pdf/unlock_all_in_folder.sh'fitting
 alias trash='cd ~/.local/share/Trash'
-lias count="ls -1 | wc -l"
+alias count="ls -1 | wc -l"
 alias cps="xsel -b < " # copy to text
 alias onedrivef="onedrive --syncdir $ONEDRIVE --monitor > ~/onedrive_manual.log --check-for-nosync"
 alias cron_env="env - `cat ~/cronenv` /bin/sh"
@@ -73,7 +73,7 @@ alias gpu_reset="pkill -9 python && visdom"
 alias reset_gpu=gpu_reset
 
 # GITHUB FIXING
-alias bfg='java -jar /home/taylor/apps/bfg-1.13.0.jar '
+alias bfg='java -jar /home/${USER}/apps/bfg-1.13.0.jar '
 
 ## TMUX
 alias attach="tmux attach-session -t "
@@ -127,7 +127,7 @@ alias vnc='vncserver -geometry 1980x1080'
 # DON'T ALIAS TEST
 
 ## Distraction free, block hosts
-alias block="sudo python3 $GITHUBGithub/block_hosts/block.py "
+alias block="sudo python3 $GITHUB/Github/block_hosts/block.py "
 
 pi3_connect()
 {
@@ -148,10 +148,10 @@ wifi_ip="192.168.187.98"
 alias pi2_hard="ssh pi@192.168.187.99 || ssh pi@fife.entrydns.org -p 57322"
 alias pi2_wifi="ssh pi@$wifi_ip || ssh pi@fife.entrydns.org -p 57323"
 alias pi2="pi2_wifi"
-alias map_pi3="sshfs -o StrictHostKeyChecking=no -o nonempty,allow_other,reconnect pi@192.168.187.103:/home/pi /home/taylor/shares/pi3"
-#alias map_pi2="sudo umount -f /home/taylor/shares/pi2 || sleep 1 || sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/home/pi /home/taylor/shares/pi2"
-alias map_pi2="sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/home/pi /home/taylor/shares/pi2"
-alias map_pi2_root="sudo umount -f /home/taylor/shares/pi2_root || sleep 1 || sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/ /home/taylor/shares/pi2_root"
+alias map_pi3="sshfs -o StrictHostKeyChecking=no -o nonempty,allow_other,reconnect pi@192.168.187.103:/home/pi /home/${USER}/shares/pi3"
+#alias map_pi2="sudo umount -f /home/${USER}/shares/pi2 || sleep 1 || sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/home/pi /home/${USER}/shares/pi2"
+alias map_pi2="sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/home/pi /home/${USER}/shares/pi2"
+alias map_pi2_root="sudo umount -f /home/${USER}/shares/pi2_root || sleep 1 || sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/ /home/${USER}/shares/pi2_root"
 alias map_schizo="sshfs tarch@schizo.cs.byu.edu:/users/grads/tarch /media/BYUCS/"
 alias plex="sudo systemctl start plexmediaserver"
 alias server="ping 192.168.187.100"
@@ -181,7 +181,7 @@ alias galois_port3389="ssh -f tarch@schizo.cs.byu.edu -L 33389:galois:3389 -l ta
 
 #alias galois_vis='ssh -t -L 13389:localhost:9000 tarch@schizo.cs.byu.edu ssh -L 9000:localhost:8080 taylor@192.168.29.64'
 alias galois_vis='ssh -f tarch@schizo.cs.byu.edu -L 9001:galois:9001 -N'
-alias galois_vnc='ssh -f tarch@schizo.cs.byu.edu -L 5901:galois:5901 -N && remmina -c /home/taylor/.local/share/remmina/GaloisVNC.remmina'
+alias galois_vnc='ssh -f tarch@schizo.cs.byu.edu -L 5901:galois:5901 -N && remmina -c /home/${USER}/.local/share/remmina/GaloisVNC.remmina'
 
 alias theserve='ssh -p 57321 -L 13390:192.168.187.100:3389 pi@fife.entrydns.org' # needed to RDP to TheServe when the VPN is up
 alias plex='    ssh -p 57321 -L 32401:192.168.187.100:32400 pi@fife.entrydns.org' # PLEX forward to localhost:32401; 57321 is port to pi3
@@ -211,7 +211,7 @@ alias wol="wakeonlan 40:8D:5C:0C:3F:CA" # wake the server
 alias wol_galois="wakeonlan 70:85:c2:b9:14:6b"
 alias wol_kant="wakeonlan 78:24:af:83:2f:c9"
 
-alias byu_vpn="openvpn3 session-start --config /home/taylor/taylors_scripts/openvpn/client.ovpn"
+alias byu_vpn="openvpn3 session-start --config /home/${USER}/taylors_scripts/openvpn/client.ovpn"
 alias byu_vpn="openvpn3 session-start --config client.ovpn"
 alias np=notepadqq
 alias java8="/usr/lib/jvm/java-8-openjdk-amd64/bin/java "

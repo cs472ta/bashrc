@@ -1,4 +1,7 @@
 ## MAP / CONNECTIONS - determine if connecting through schizo is required
+## BYU VPN
+
+# BFG for GITHUB
 
 echo "source ~/bashrc/master.sh" > ~/.bashrc
 
