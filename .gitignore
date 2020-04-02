@@ -1,0 +1,9 @@
+# Pycharm project settings
+.idea/
+.idea
+*.xml
+*.iml
+
+# Protected information
+secure/
+super/

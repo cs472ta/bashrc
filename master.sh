@@ -1,0 +1,252 @@
+# Path
+export "PATH=$PATH:~/bashrc/bin" # add standard command binaries
+
+# Script to install bashrc to bashrc
+# Computer specific paths
+source "./configs/${HOSTNAME}.sh"
+source "./super/secure.sh"
+source "./secure.sh"
+source /home/taylor/bashrc/scripts/vpn
+
+alias py="source ./venv/bin/activate"
+alias venv="virtualenv -p python3 venv"
+alias munit="cd '/media/taylor/Data/PyCharm Projects/MUNIT'"
+alias github="cd '$GITHUBGithub'"
+alias hibernate="systemctl hibernate -i"
+
+# Python
+unalias py 2>/dev/null
+py () {
+  path=${1:-.}
+  source "$path/venv/bin/activate"
+}
+alias virt="virtualenv -p python3 venv"
+alias virt2="virtualenv -p python3 venv && sleep 5 && py && pip install -r requirements.txt"
+alias install_req='pip install -r /media/taylor/eef4fe97-0587-4acb-b65d-f0ad5ed8d623/taylor/requirements.txt'
+alias super_jupy='ssh -N -f -L localhost:8888:localhost:8889 tarch@rhel7ssh.fsl.byu.edu'
+alias jupy='github && jupyter lab'
+alias jupy2='cd "$ONEDRIVE/Documents/Notes for Tools/Python/" && jupyter lab'
+alias update_utils='pip install git+https://github.com/Tahlor/utils.git'
+alias cars='conda activate cars && github && cd cars'
+alias add_kernel='pip install ipykernel && python -m ipykernel install --user --name '
+alias add_kernel2='pip2 install ipykernel && python2 -m ipykernel install --user --name '
+alias remove_kernel='jupyter kernelspec uninstall '
+
+alias notes='cd "$ONEDRIVE/Documents/Notes for Tools"'
+alias update="cd $GITHUB/simple_hwr && push && cd /media/SuperComputerGroups/fslg_hwr/taylor_simple_hwr && pull"
+alias update_env="conda env update -f environment.yaml"
+alias pydtw="ss && cd loss_module && python taylor_dtw/setup.py install"
+
+# System
+alias refresh='source ~/.bashrc'
+alias bashrc="nano ~/bashrc/master.sh && refresh"
+alias bashrc2='gedit ~/.bashrc && refresh'
+alias sleepy="osync && ~/bashrc/super/sleep.sh "
+alias shutty="osync && shutdown "
+#alias sleepy="~/bashrc/super/sleep.sh "
+alias hibernate="systemctl hibernate -i"
+alias suspend="sudo pkill -f sshfs && systemctl suspend -i"
+alias wanip='dig @resolver1.opendns.com ANY myip.opendns.com +short'
+alias sudo='sudo '
+alias omon='/usr/local/bin/onedrive --syncdir $ONEDRIVE --monitor  > ~/onedrive_manual.log'
+alias osync='/usr/local/bin/onedrive --synchronize --syncdir $ONEDRIVE'
+alias osync_log='osync > ~/onedrive_manual.log'
+alias reset_mouse="sudo modprobe -r psmouse && sudo mode probe psmouse"
+alias enable_suspend='sudo sh -c "echo XHC > /proc/acpi/wakeup"'
+alias pdf_studio='rm -r /home/taylor/.pdfstudio12' #&& cp -r /home/taylor/.pdfstudio12_backup/ /home/taylor/.pdfstudio12/'
+alias unlock='$ONEDRIVE/Documents/Notes for Tools/Linux/scripts/pdf/unlock_all_in_folder.sh'fitting
+alias trash='cd ~/.local/share/Trash'
+lias count="ls -1 | wc -l"
+alias cps="xsel -b < " # copy to text
+alias onedrivef="onedrive --syncdir $ONEDRIVE --monitor > ~/onedrive_manual.log --check-for-nosync"
+alias cron_env="env - `cat ~/cronenv` /bin/sh"
+#find . -type f -name '*.sh' -print0 | xargs -0 sed -i 's|--ntasks=28|--ntasks=8|g'
+alias docker="sudo docker "
+alias np="notepadqq "
+alias res="/media/SuperComputerGroups/fslg_hwr/taylor_simple_hwr/RESULTS"
+alias watch="/usr/bin/watch -n .3"
+
+## GPU
+alias gpu="watch -n0 nvidia-smi"
+alias gpu_reset="kill -9 \$(nvidia-smi | sed -n 's/|\s*[0-9]*\s*\([0-9]*\)\s*.*/\1/p' | sort | uniq | sed '/^\$/d')"
+alias gpu_reset="pkill -9 python && visdom"
+alias reset_gpu=gpu_reset
+
+# GITHUB FIXING
+alias bfg='java -jar /home/taylor/apps/bfg-1.13.0.jar '
+
+## TMUX
+alias attach="tmux attach-session -t "
+alias grab='sudo reptyr -T ' # get TMUX sessions
+
+## KVM / Virtual Machine / QEMU
+alias kvm='virsh console ubuntu18.04'
+
+## Github
+#alias push="git add . && git commit -C HEAD --amend && git push origin master -f"
+alias push="git add . && git commit -C HEAD --amend && git push -f"
+#alias push="git add . && git commit -m update && git push"
+alias pull='git reset --merge ORIG_HEAD && git pull'
+alias pullf='git reset --hard HEAD~1 && git pull'
+alias recommit='git commit --amend -m '
+# git reset HEAD^ # uncommit
+
+unalias pushit 2>/dev/null
+pushit () {
+  message=${1:-"update"}
+  git add . && git commit -m "$message" && git push
+}
+
+git_setup(){
+	git init
+	cp "$GITHUB/SHARE/.gitignore" .
+	git add .
+	git commit -m "first commit"
+	git remote add origin git@github.com:Tahlor/${1}
+	git push -u origin master
+}
+
+
+## VPN Stuff
+# Switzerland Switzerland Spain Spain Sweden Sweden Poland Norway Netherlands Latvia Lithuania Hungary Czech Coratia Denmark Finland 
+vpn_country=("CH" "CH" "ES" "ES" "SE" "SE" "PL" "NO" "NL" "LV" "LT" "HU" "CZ" "HR" "HR" "FI")
+#vpn_country=("CA-W")
+arr_length=${#vpn_country[@]}
+alias update_home_ip='curl -k -X PUT -d "" https://entrydns.net/records/modify/rPZ8fSfGJ2nFCciqhpc6'
+alias update_vpn_ip='curl -k -X PUT -d "" https://entrydns.net/records/modify/1KKVH6w46vimddRBrhtp'
+
+alias vpnus='windscribe connect US'
+alias vpn='windscribe connect ${vpn_country[$[ $RANDOM % $arr_length ]]}'
+alias unvpn='windscribe disconnect'
+alias random_country='echo ${vpn_country[$[ $RANDOM % $arr_length ]]}'
+alias vpn2='windscribe connect US'
+alias vpn3='windscribe connect US-W'
+alias vpn4='windscribe connect IN'
+alias restart_vnc='vncserver -kill :1 && vncserver -geometry 1980x1080'
+alias vnc='vncserver -geometry 1980x1080'
+# DON'T ALIAS TEST
+
+## Distraction free, block hosts
+alias block="sudo python3 $GITHUBGithub/block_hosts/block.py "
+
+pi3_connect()
+{
+    # If in a git repo - call git mv. otherwise- call mv
+    if [ $(iwgetid -r) == "FifeNet" ]; 
+    then
+        ssh pi@192.168.187.103 
+    else 
+	ssh pi@fife.entrydns.org -p 57321
+    fi
+}
+
+alias pi3="if (iwgetid -r)==(FifeNet) ssh pi@192.168.187.103 || ssh pi@136.36.13.188 -p 57321"
+alias pi3="ssh pi@192.168.187.103 || ssh pi@fife.entrydns.org -p 57321"
+alias pi3=pi3_connect
+
+wifi_ip="192.168.187.98"
+alias pi2_hard="ssh pi@192.168.187.99 || ssh pi@fife.entrydns.org -p 57322"
+alias pi2_wifi="ssh pi@$wifi_ip || ssh pi@fife.entrydns.org -p 57323"
+alias pi2="pi2_wifi"
+alias map_pi3="sshfs -o StrictHostKeyChecking=no -o nonempty,allow_other,reconnect pi@192.168.187.103:/home/pi /home/taylor/shares/pi3"
+#alias map_pi2="sudo umount -f /home/taylor/shares/pi2 || sleep 1 || sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/home/pi /home/taylor/shares/pi2"
+alias map_pi2="sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/home/pi /home/taylor/shares/pi2"
+alias map_pi2_root="sudo umount -f /home/taylor/shares/pi2_root || sleep 1 || sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/ /home/taylor/shares/pi2_root"
+alias map_schizo="sshfs tarch@schizo.cs.byu.edu:/users/grads/tarch /media/BYUCS/"
+alias plex="sudo systemctl start plexmediaserver"
+alias server="ping 192.168.187.100"
+
+## SSH
+alias schizo="ssh tarch@schizo.cs.byu.edu"
+#alias super="ssh tarch@ssh.fsl.byu.edu"
+alias super="~/bashrc/super/super.sh"
+alias super2='~/taylors_scripts/super2.sh'
+alias kant="ssh -t tarch@schizo.cs.byu.edu 'ssh taylor@192.168.29.56'"
+alias brodie="ssh -t tarch@schizo.cs.byu.edu 'ssh taylor@192.168.29.8'"
+alias kant_port="ssh -t -L 13389:localhost:3389 tarch@schizo.cs.byu.edu ssh -L 3389:localhost:3389 taylor@192.168.29.56 && sleep 4"
+alias galois="ssh -t tarch@schizo.cs.byu.edu 'ssh taylor@192.168.29.64'"
+alias galois_port3389="ssh -t -L 13389:localhost:3389 tarch@schizo.cs.byu.edu ssh -L 3389:localhost:3389 taylor@192.168.29.64 && sleep 4"
+alias super_mason='~/bashrc/super/super_mason.sh'
+
+## Ports
+# Port 22 to 2222 - SSH
+alias galoisjupy88="ssh -f tarch@schizo.cs.byu.edu -L 8888:galois:8888 -N"
+alias galoisjupy89="ssh -f tarch@schizo.cs.byu.edu -L 8889:galois:8889 -N"
+alias galoisjupy90="ssh -f tarch@schizo.cs.byu.edu -L 8890:galois:8890 -N"
+alias galoisjupy="galoisjupy88 && galoisjupy90 && galoisjupy89"
+
+alias galois_port22="ssh -f tarch@schizo.cs.byu.edu -L 2222:galois:22 -N"
+alias brodie_port22="ssh -f tarch@schizo.cs.byu.edu -L 2223:192.168.29.8:22 -N"
+alias galois_port3389="ssh -f tarch@schizo.cs.byu.edu -L 33389:galois:3389 -l tarch -N"
+
+#alias galois_vis='ssh -t -L 13389:localhost:9000 tarch@schizo.cs.byu.edu ssh -L 9000:localhost:8080 taylor@192.168.29.64'
+alias galois_vis='ssh -f tarch@schizo.cs.byu.edu -L 9001:galois:9001 -N'
+alias galois_vnc='ssh -f tarch@schizo.cs.byu.edu -L 5901:galois:5901 -N && remmina -c /home/taylor/.local/share/remmina/GaloisVNC.remmina'
+
+alias theserve='ssh -p 57321 -L 13390:192.168.187.100:3389 pi@fife.entrydns.org' # needed to RDP to TheServe when the VPN is up
+alias plex='    ssh -p 57321 -L 32401:192.168.187.100:32400 pi@fife.entrydns.org' # PLEX forward to localhost:32401; 57321 is port to pi3
+
+# fusermount -u ~/shares/galois_data
+# fusermount -u ~/shares/galois_home 
+alias map_galois_data="galois_port22 && /usr/bin/sshfs -p 2222 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/media/data ~/shares/galois_data"
+alias map_galois_home="galois_port22 && sleep 2 & /usr/bin/sshfs -p 2222 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/home/taylor ~/shares/galois_home"
+alias map_brodie="brodie_port22 && sleep 2 & /usr/bin/sshfs -p 2223 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/home/taylor ~/shares/brodie"
+alias map_mason="/usr/bin/sshfs -o nonempty,reconnect,umask=0000,allow_other,IdentityFile=~/.ssh/id_rsa mason@alexthelion-g10ac:/home/mason ~/shares/mason"
+alias map_galois="map_galois_data & map_galois_home"
+
+alias lab="lab_remote || ssh taylor@192.168.29.56"
+alias map_lab='sudo ~/bashrc/super/ConnectLab'
+alias map_super='sudo ~/bashrc/super/map_super.sh'
+alias map_groups='sudo ~/bashrc/super/map_groups.sh'
+alias shares='map_lab && map_super'
+
+## 
+alias visdom="eval 'conda activate hwr5 && nohup python -m visdom.server -p 9001 &>/dev/null &'"
+alias connectit="galois_port22 && brodie_port22 && galois_vis && super"
+
+
+
+## WOL
+alias wol="wakeonlan 40:8D:5C:0C:3F:CA" # wake the server
+alias wol_galois="wakeonlan 70:85:c2:b9:14:6b"
+alias wol_kant="wakeonlan 78:24:af:83:2f:c9"
+
+alias byu_vpn="openvpn3 session-start --config /home/taylor/taylors_scripts/openvpn/client.ovpn"
+alias byu_vpn="openvpn3 session-start --config client.ovpn"
+alias np=notepadqq
+alias java8="/usr/lib/jvm/java-8-openjdk-amd64/bin/java "
+alias set_java8='sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64'
+alias set_java11='sudo update-java-alternatives --set /usr/lib/jvm/java-1.11.0-openjdk-amd64'
+
+# YT Downloader
+# YT
+#alias yt='cd /media/data/YT && youtube-dl -f best -ciw -o "%(title)s.%(ext)s" --auto-number -v https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw '
+#alias yt='cd /media/data/YT && youtube-dl -f best -ciw  -o "%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" -v https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw'
+alias yt='cd /media/data/YT && youtube-dl -f best -ciw  -o "%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" -v '
+
+# PDF Studio
+alias pdf_studio="rm -r ~/.pdfstudio12"
+alias unlock_pdf='"$ONEDRIVE/Documents/Notes for Tools/Linux/scripts/pdf/unlock_all_in_folder.sh"'
+
+# Projects
+alias ss="conda activate hwr && github && cd simple_hwr"
+alias synth="github && cd handwriting-synthesis && conda activate tf16"
+alias revisdom="pkill -f visdom && ss && visdom && sleep 5 && python hwr_utils/visualize.py"
+
+unalias replace 2>/dev/null
+replace() {
+    message="${3:-'.sh'}"
+    echo "Find: $1" 
+    echo "Replace: $2"
+    echo "Extension: ${3}"
+    echo "Recursive: True"
+    read -r -p "Are you sure? [y/N] " response
+    case "$response" in
+        [yY][eE][sS]|[yY]) 
+            find . -type f -name "*$3" -print0 | xargs -0 sed -i "s/$1/$2/g"
+            ;;
+        *)
+            echo "No replace"
+            ;;
+    esac
+}
