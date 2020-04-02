@@ -148,6 +148,22 @@ pi3_connect()
     fi
 }
 
+theserve_connect()
+{
+    message=${1:-"no_vpn"}
+    # If in a git repo - call git mv. otherwise- call mv
+    if [ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == '192.168.187.1' ];
+    then
+        ssh taylor@192.168.187.100
+    elif [ $1 == "vpn" ]; then
+      ssh -p 57321 -L 13390:192.168.187.100:3389 pi@fife.entrydns.org
+    else
+    	ssh pi@fife.entrydns.org -p 57320
+    fi
+}
+
+alias theserve="theserve_connect "
+
 alias pi3="if (iwgetid -r)==(FifeNet) ssh pi@192.168.187.103 || ssh pi@136.36.13.188 -p 57321"
 alias pi3="ssh pi@192.168.187.103 || ssh pi@fife.entrydns.org -p 57321"
 alias pi3=pi3_connect
@@ -190,7 +206,6 @@ alias galois_port3389="ssh -f tarch@schizo.cs.byu.edu -L 33389:galois:3389 -l ta
 alias galois_vis='ssh -f tarch@schizo.cs.byu.edu -L 9001:galois:9001 -N'
 alias galois_vnc='ssh -f tarch@schizo.cs.byu.edu -L 5901:galois:5901 -N && remmina -c /home/${USER}/.local/share/remmina/GaloisVNC.remmina'
 
-alias theserve='ssh -p 57321 -L 13390:192.168.187.100:3389 pi@fife.entrydns.org' # needed to RDP to TheServe when the VPN is up
 alias plex='    ssh -p 57321 -L 32401:192.168.187.100:32400 pi@fife.entrydns.org' # PLEX forward to localhost:32401; 57321 is port to pi3
 
 # fusermount -u ~/shares/galois_data
