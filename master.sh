@@ -3,10 +3,18 @@ export "PATH=$PATH:~/bashrc/bin" # add standard command binaries
 
 # Script to install bashrc to bashrc
 # Computer specific paths
-source "/home/${USER}/bashrc/configs/${HOSTNAME}.sh"
-source "/home/${USER}/bashrc/super/secure.sh"
-source "/home/${USER}/bashrc/secure/secure.sh"
+host_rc="/home/${USER}/bashrc/configs/${HOSTNAME}.sh"
+super_rc="/home/${USER}/bashrc/super/secure.sh"
+secure_rc="/home/${USER}/bashrc/secure.sh"
+
+
+if test -f "$host_rc"; then source "$host_rc"; fi
+if test -f "$super_rc"; then source "$super_rc"; fi
+if test -f "$secure_rc"; then source "$secure_rc"; fi
 source /home/${USER}/bashrc/scripts/vpn
+if test -f "cat ~/cronenv"; then
+  alias cron_env="env - `cat ~/cronenv` /bin/sh"
+fi
 
 alias py="source ./venv/bin/activate"
 alias venv="virtualenv -p python3 venv"
@@ -59,7 +67,6 @@ alias trash='cd ~/.local/share/Trash'
 alias count="ls -1 | wc -l"
 alias cps="xsel -b < " # copy to text
 alias onedrivef="onedrive --syncdir $ONEDRIVE --monitor > ~/onedrive_manual.log --check-for-nosync"
-alias cron_env="env - `cat ~/cronenv` /bin/sh"
 #find . -type f -name '*.sh' -print0 | xargs -0 sed -i 's|--ntasks=28|--ntasks=8|g'
 alias docker="sudo docker "
 alias np="notepadqq "
@@ -127,24 +134,24 @@ alias vnc='vncserver -geometry 1980x1080'
 # DON'T ALIAS TEST
 
 ## Distraction free, block hosts
-alias block="sudo python3 $GITHUB/Github/block_hosts/block.py "
+alias block="sudo python3 /home/$USER/bashrc/ext/block_hosts/block.py "
 
 pi3_connect()
 {
     # If in a git repo - call git mv. otherwise- call mv
-    if [ $(iwgetid -r) == "FifeNet" ]; 
+    #if [ $(iwgetid -r) == "FifeNet" ];
+    if [ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == '192.168.187.1' ];
     then
         ssh pi@192.168.187.103 
     else 
-	ssh pi@fife.entrydns.org -p 57321
+    	ssh pi@fife.entrydns.org -p 57321
     fi
 }
 
 alias pi3="if (iwgetid -r)==(FifeNet) ssh pi@192.168.187.103 || ssh pi@136.36.13.188 -p 57321"
 alias pi3="ssh pi@192.168.187.103 || ssh pi@fife.entrydns.org -p 57321"
 alias pi3=pi3_connect
-
-wifi_ip="192.168.187.98"
+# ssh-copy-id tarch@ssh.fsl.byu.edu
 alias pi2_hard="ssh pi@192.168.187.99 || ssh pi@fife.entrydns.org -p 57322"
 alias pi2_wifi="ssh pi@$wifi_ip || ssh pi@fife.entrydns.org -p 57323"
 alias pi2="pi2_wifi"
