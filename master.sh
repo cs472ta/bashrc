@@ -19,7 +19,7 @@ fi
 alias py="source ./venv/bin/activate"
 alias venv="virtualenv -p python3 venv"
 alias munit="cd '/media/${USER}/Data/PyCharm Projects/MUNIT'"
-alias github="cd '$GITHUB/Github'"
+alias github="cd $GITHUB"
 alias hibernate="systemctl hibernate -i"
 
 # Python

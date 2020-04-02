@@ -72,8 +72,25 @@ source "/home/$USER/bashrc/master.sh"
 ###   SSH/SUPER        ###
 ##########################
 
-bash "/home/$USER/bashrc/install_scripts/ssh.sh"
-bash "/home/$USER/bashrc/install_scripts/super.sh"
+# Install onedrive
+while true; do
+    read -p "Do you wish to install SSH keys? Y/n " yn
+    case $yn in
+        [Yy]* ) bash "/home/$USER/bashrc/install_scripts/ssh.sh"; break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+while true; do
+    read -p "Do you wish to install Super Computer keys? Y/n " yn
+    case $yn in
+        [Yy]* ) bash bash "/home/$USER/bashrc/install_scripts/super.sh"; break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
 
 ##########################
 ### CONFIGURE GIT      ###
@@ -86,7 +103,7 @@ git config --global credential.helper 'cache --timeout=3600000'
 
 # Install onedrive
 while true; do
-    read -p "Do you wish to install ONEDRIVE SYNC?" yn
+    read -p "Do you wish to install ONEDRIVE SYNC? Y/n " yn
     case $yn in
         [Yy]* ) bash "/home/$USER/bashrc/install_scripts/install_onedrive.sh"; break;;
         [Nn]* ) break;;
@@ -99,7 +116,7 @@ done
 ##########################
 # Block hosts
 while true; do
-    read -p "Do you wish to install WEBSITE HOST BLOCKER?" yn
+    read -p "Do you wish to install WEBSITE HOST BLOCKER? Y/n " yn
     case $yn in
         [Yy]* ) cd ~/bashrc/ext;
                 git clone git@github.com:tahlor/block_hosts;
