@@ -252,7 +252,7 @@ alias pdf_studio="rm -r ~/.pdfstudio12"
 alias unlock_pdf='"$ONEDRIVE/Documents/Notes for Tools/Linux/scripts/pdf/unlock_all_in_folder.sh"'
 
 # Projects
-alias ss="conda activate hwr && github && cd simple_hwr"
+alias ss="conda activate $HWR_ENV && github && cd simple_hwr"
 alias synth="github && cd handwriting-synthesis && conda activate tf16"
 alias revisdom="pkill -f visdom && ss && visdom && sleep 5 && python hwr_utils/visualize.py"
 
