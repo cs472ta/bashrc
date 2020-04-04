@@ -21,6 +21,7 @@ alias venv="virtualenv -p python3 venv"
 alias munit="cd '/media/${USER}/Data/PyCharm Projects/MUNIT'"
 alias github="cd $GITHUB"
 alias hibernate="systemctl hibernate -i"
+shopt -s dotglob ## Always move hidden files
 
 
 # Python
@@ -70,6 +71,8 @@ alias count="ls -1 | wc -l"
 alias cps="xsel -b < " # copy to text
 alias onedrivef="onedrive --syncdir $ONEDRIVE --monitor > /home/$USER/bashrc/onedrive/onedrive_manual.log --check-for-nosync"
 #find . -type f -name '*.sh' -print0 | xargs -0 sed -i 's|--ntasks=28|--ntasks=8|g'
+alias search="find . -type 'f' -name " # Find a file
+
 alias docker="sudo docker "
 alias np="notepadqq "
 alias res="/media/SuperComputerGroups/fslg_hwr/taylor_simple_hwr/RESULTS"
