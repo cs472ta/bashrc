@@ -22,6 +22,7 @@ alias munit="cd '/media/${USER}/Data/PyCharm Projects/MUNIT'"
 alias github="cd $GITHUB"
 alias hibernate="systemctl hibernate -i"
 
+
 # Python
 unalias py 2>/dev/null
 py () {
@@ -47,6 +48,7 @@ alias pydtw="ss && cd loss_module && python taylor_dtw/setup.py install"
 
 # System
 alias refresh='source ~/.bashrc'
+alias refresh1='cd ~/bashrc && git pull && cd - && refresh'
 alias bashrc="nano ~/bashrc/master.sh && refresh"
 alias bashrc2='gedit ~/.bashrc && refresh'
 alias sleepy="osync && ~/bashrc/super/sleep.sh "
