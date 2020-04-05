@@ -1,6 +1,15 @@
 # Path
 export "PATH=$PATH:~/bashrc/bin" # add standard command binaries
 
+
+## Github
+unalias pushit 2>/dev/null
+pushit () {
+  message=${1:-"update"}
+  git add . && git commit -m "$message" && git push
+}
+
+
 # Script to install bashrc to bashrc
 # Computer specific paths
 host_rc="/home/${USER}/bashrc/configs/${HOSTNAME}.sh"
@@ -51,8 +60,9 @@ alias pydtw="ss && cd loss_module && python taylor_dtw/setup.py install"
 alias refresh='source ~/.bashrc'
 alias refresh1='cd ~/bashrc && git pull && cd - && refresh'
 alias websites='gedit ~/bashrc/ext/block_hosts/websites.txt'
+alias saveit='cd ~/bashrc && pushit && cd - '
 alias bashrc="nano ~/bashrc/master.sh && refresh"
-alias bashrc2='gedit ~/.bashrc && refresh'
+alias bashrc2='gedit ~/master.sh && refresh'
 alias sleepy="osync && ~/bashrc/super/sleep.sh "
 alias shutty="osync && shutdown "
 #alias sleepy="~/bashrc/super/sleep.sh "
@@ -103,12 +113,6 @@ alias pull='git reset --merge ORIG_HEAD && git pull'
 alias pullf='git reset --hard HEAD~1 && git pull'
 alias recommit='git commit --amend -m '
 # git reset HEAD^ # uncommit
-
-unalias pushit 2>/dev/null
-pushit () {
-  message=${1:-"update"}
-  git add . && git commit -m "$message" && git push
-}
 
 git_setup(){
 	git init
@@ -279,3 +283,9 @@ replace() {
             ;;
     esac
 }
+
+
+### Bash Tips:
+
+# Rename files (find/replace)
+# rename 's/find/replace/' *
