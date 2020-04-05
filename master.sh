@@ -50,6 +50,7 @@ alias pydtw="ss && cd loss_module && python taylor_dtw/setup.py install"
 # System
 alias refresh='source ~/.bashrc'
 alias refresh1='cd ~/bashrc && git pull && cd - && refresh'
+alias websites='gedit ~/bashrc/ext/block_hosts/websites.txt'
 alias bashrc="nano ~/bashrc/master.sh && refresh"
 alias bashrc2='gedit ~/.bashrc && refresh'
 alias sleepy="osync && ~/bashrc/super/sleep.sh "
@@ -174,7 +175,7 @@ alias pi3="ssh pi@192.168.187.103 || ssh pi@fife.entrydns.org -p 57321"
 alias pi3=pi3_connect
 # ssh-copy-id tarch@ssh.fsl.byu.edu
 alias pi2_hard="ssh pi@192.168.187.99 || ssh pi@fife.entrydns.org -p 57322"
-alias pi2_wifi="ssh pi@$wifi_ip || ssh pi@fife.entrydns.org -p 57323"
+alias pi2_wifi="ssh pi@192.168.187.98 || ssh pi@fife.entrydns.org -p 57323"
 alias pi2="pi2_wifi"
 alias map_pi3="sshfs -o StrictHostKeyChecking=no -o nonempty,allow_other,reconnect pi@192.168.187.103:/home/pi /home/${USER}/shares/pi3"
 #alias map_pi2="sudo umount -f /home/${USER}/shares/pi2 || sleep 1 || sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/home/pi /home/${USER}/shares/pi2"
