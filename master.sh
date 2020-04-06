@@ -223,7 +223,7 @@ alias plex='    ssh -p 57321 -L 32401:192.168.187.100:32400 pi@fife.entrydns.org
 # fusermount -u ~/shares/galois_home 
 alias map_galois_data="galois_port22 && /usr/bin/sshfs -p 2222 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/media/data ~/shares/galois_data"
 alias map_galois_home="galois_port22 && sleep 2 & /usr/bin/sshfs -p 2222 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/home/taylor ~/shares/galois_home"
-alias map_brodie="brodie_port22 && sleep 2 & /usr/bin/sshfs -p 2223 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/home/taylor ~/shares/brodie"
+alias map_brodie="brodie_port22 && sleep 2 & fusermount -uz ~/shares/brodie & /usr/bin/sshfs -p 2223 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/home/taylor ~/shares/brodie"
 alias map_mason="/usr/bin/sshfs -o nonempty,reconnect,umask=0000,allow_other,IdentityFile=~/.ssh/id_rsa mason@alexthelion-g10ac:/home/mason ~/shares/mason"
 alias map_galois="map_galois_data & map_galois_home"
 
