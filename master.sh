@@ -30,6 +30,12 @@ if test -f "cat ~/cronenv"; then
   alias cron_env="env - `cat ~/cronenv` /bin/sh"
 fi
 
+secure_path="~/super/secure.sh"
+if [ -f "$secure_path" ]; then
+    source $secure_path
+fi
+
+
 alias py="source ./venv/bin/activate"
 alias venv="virtualenv -p python3 venv"
 alias munit="cd '/media/${USER}/Data/PyCharm Projects/MUNIT'"
