@@ -20,7 +20,12 @@ secure_rc="/home/${USER}/bashrc/secure.sh"
 if test -f "$host_rc"; then source "$host_rc"; fi
 if test -f "$super_rc"; then source "$super_rc"; fi
 if test -f "$secure_rc"; then source "$secure_rc"; fi
-source /home/${USER}/bashrc/scripts/vpn
+
+vpn_path=/home/${USER}/bashrc/scripts/vpn
+if [ -f "$vpn_path" ]; then
+    source $vpn_path
+fi
+
 if test -f "cat ~/cronenv"; then
   alias cron_env="env - `cat ~/cronenv` /bin/sh"
 fi
@@ -229,7 +234,7 @@ alias map_galois="map_galois_data & map_galois_home"
 
 alias lab="lab_remote || ssh taylor@192.168.29.56"
 alias map_lab='sudo ~/bashrc/super/ConnectLab'
-alias map_super='sudo ~/bashrc/super/map_super.sh'
+alias map_super='sudo bash ~/bashrc/super/map_super.sh'
 alias map_groups='sudo ~/bashrc/super/map_groups.sh'
 alias shares='map_lab && map_super'
 
