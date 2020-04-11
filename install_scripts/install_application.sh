@@ -2,6 +2,9 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 EXT=$SCRIPT_DIR/../ext/
 
+# Install SSHFS
+sudo apt install sshfs
+
 # Install PYCHARM
 #sudo snap install pycharm-professional --classic
 
@@ -10,7 +13,7 @@ EXT=$SCRIPT_DIR/../ext/
 cd $EXT
 git clone --recursive https://github.com/notepadqq/notepadqq.git
 sudo apt-get install qt5-default qttools5-dev-tools qtwebengine5-dev libqt5websockets5-dev libqt5svg5 libqt5svg5-dev libuchardet-dev pkg-config
-cd notepadqq
+cd $EXT/notepadqq
 ./configure --prefix /usr
 make
 sudo make install
