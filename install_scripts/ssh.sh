@@ -1,3 +1,5 @@
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 # SSH
 ssh-keygen -t rsa -N '' -b 4096 -C "tahlor@gmail.com" -f ~/.ssh/id_rsa
 cat ~/.ssh/id_rsa.pub | xclip -sel clip
@@ -37,6 +39,16 @@ else
   ssh-copy-id mason@alexthelion-g10ac
   ssh-copy-id taylor@galois
 fi
+
+cat $SCRIPT_DIR/ssh.config >> ~/.ssh/config
+
+# Output multiple lines
+#cat <<EOT >> greetings.txt
+#line 1
+#line 2
+#EOT
+
+
 
 # Ports
 # 57320 - TheServe SSH

@@ -272,6 +272,40 @@ alias yt='cd /media/data/YT && youtube-dl -f best -ciw  -o "%(uploader)s/%(playl
 alias pdf_studio="rm -r ~/.pdfstudio12"
 alias unlock_pdf='"$ONEDRIVE/Documents/Notes for Tools/Linux/scripts/pdf/unlock_all_in_folder.sh"'
 
+# SBATCH TRICKS
+alias sbatch_local="for i in \$(ls *.sh); do sbatch \$i; done;"
+alias sbatch_r="for i in \$(find . -name '*.sh'); do sbatch \$i; done;"
+alias start_scripts="find . -name '*.sh' -exec {} \;"
+alias ntasks="find . -type f -name '*.sh' -print0 | xargs -0 sed -i 's/--ntasks=28/--ntasks=7/g' && find . -type f -name '*.sh' -print0 | xargs -0 sed -i 's/--mem-per-cpu=2666MB/--mem-per-cpu=8000MB/g'"
+alias clean_git="java -jar ~/bfg.jar --strip-blobs-bigger-than 50M ."
+
+unalias sbatcher 2>/dev/null
+sbatcher() {
+    file_name="${1:-*.sh}"
+    current_path=$(realpath .)
+    echo $file_name
+    for i in $(find . -name ${file_name}); do
+    #for d in ./*; do
+        #base=$(basename $i) # the file name
+        #"$(dirname -- "$file")" # the parent name
+        # script_path="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" # the script path name
+        # realpath . # the full expanded path
+        #[[ $base =~ ^(archive|ARCHIVE)$ ]] && continue
+        if ! [[ $i =~ '/archive/' ]]; then
+            echo $i
+            parent=$(dirname --  $i)
+            full_path=$(realpath $i)
+            cd $parent
+            if [ -x "$(command -v sbatch)" ]; then
+                sbatch $full_path
+            else
+                echo "sbatch not installed"
+            fi
+            cd $current_path
+        fi
+    done;
+}
+
 # Projects
 alias ss="conda activate $HWR_ENV && github && cd simple_hwr"
 alias synth="github && cd handwriting-synthesis && conda activate tf16"
