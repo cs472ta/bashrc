@@ -1,3 +1,4 @@
+#!/bin/bash
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # SSH
@@ -40,7 +41,12 @@ else
   ssh-copy-id taylor@galois
 fi
 
-cat $SCRIPT_DIR/ssh.config >> ~/.ssh/config
+
+## INSTALL SSH CONFIG
+grep -f $SCRIPT_DIR/ssh.config ~/.ssh/config
+if [ $? -ne 0 ]; then
+	cat $SCRIPT_DIR/ssh.config >> ~/.ssh/config
+fi
 
 # Output multiple lines
 #cat <<EOT >> greetings.txt

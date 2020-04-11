@@ -1,3 +1,5 @@
+#!/bin/bash
+
 sudo apt install build-essential
 sudo apt install libcurl4-openssl-dev
 sudo apt install libsqlite3-dev

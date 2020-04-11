@@ -1,3 +1,4 @@
+#!/bin/bash
 # SETUP SCRIPT
 # Choose hostname
 # hostnamectl set-hostname 'TheServe'
