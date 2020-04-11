@@ -14,6 +14,9 @@
 
 ### UBUNTU SCREEN PREFERENCES
 
+### SET UBUNTU TO LOCAL TIME (For DUAL BOOTING WITH WINDOWS)
+timedatectl set-local-rtc 1
+
 ### Fix ALT+TAB ISSUES ###
 /usr/bin/gsettings set org.gnome.shell.app-switcher current-workspace-only true
 
