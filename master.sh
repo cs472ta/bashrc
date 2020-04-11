@@ -1,6 +1,15 @@
 # Path
 export "PATH=$PATH:~/bashrc/bin" # add standard command binaries
 
+
+## Github
+unalias pushit 2>/dev/null
+pushit () {
+  message=${1:-"update"}
+  git add . && git commit -m "$message" && git push
+}
+
+
 # Script to install bashrc to bashrc
 # Computer specific paths
 host_rc="/home/${USER}/bashrc/configs/${HOSTNAME}.sh"
@@ -11,16 +20,29 @@ secure_rc="/home/${USER}/bashrc/secure.sh"
 if test -f "$host_rc"; then source "$host_rc"; fi
 if test -f "$super_rc"; then source "$super_rc"; fi
 if test -f "$secure_rc"; then source "$secure_rc"; fi
-source /home/${USER}/bashrc/scripts/vpn
+
+vpn_path=/home/${USER}/bashrc/scripts/vpn
+if [ -f "$vpn_path" ]; then
+    source $vpn_path
+fi
+
 if test -f "cat ~/cronenv"; then
   alias cron_env="env - `cat ~/cronenv` /bin/sh"
 fi
+
+secure_path="~/super/secure.sh"
+if [ -f "$secure_path" ]; then
+    source $secure_path
+fi
+
 
 alias py="source ./venv/bin/activate"
 alias venv="virtualenv -p python3 venv"
 alias munit="cd '/media/${USER}/Data/PyCharm Projects/MUNIT'"
 alias github="cd $GITHUB"
 alias hibernate="systemctl hibernate -i"
+shopt -s dotglob ## Always move hidden files
+
 
 # Python
 unalias py 2>/dev/null
@@ -47,9 +69,12 @@ alias pydtw="ss && cd loss_module && python taylor_dtw/setup.py install"
 
 # System
 alias refresh='source ~/.bashrc'
+alias refresh1='cd ~/bashrc && git pull && cd - && refresh'
+alias websites='gedit ~/bashrc/ext/block_hosts/websites.txt'
+alias saveit='cd ~/bashrc && pushit && cd - '
 alias bashrc="nano ~/bashrc/master.sh && refresh"
-alias bashrc2='gedit ~/.bashrc && refresh'
-alias sleepy="osync && ~/bashrc/super/sleep.sh "
+alias bashrc2='gedit ~/master.sh && refresh'
+alias sleepy="osync && ~/bashrc/scripts/sleep.sh "
 alias shutty="osync && shutdown "
 #alias sleepy="~/bashrc/super/sleep.sh "
 alias hibernate="systemctl hibernate -i"
@@ -68,6 +93,8 @@ alias count="ls -1 | wc -l"
 alias cps="xsel -b < " # copy to text
 alias onedrivef="onedrive --syncdir $ONEDRIVE --monitor > /home/$USER/bashrc/onedrive/onedrive_manual.log --check-for-nosync"
 #find . -type f -name '*.sh' -print0 | xargs -0 sed -i 's|--ntasks=28|--ntasks=8|g'
+alias search="find . -type 'f' -name " # Find a file
+
 alias docker="sudo docker "
 alias np="notepadqq "
 alias res="/media/SuperComputerGroups/fslg_hwr/taylor_simple_hwr/RESULTS"
@@ -97,12 +124,6 @@ alias pull='git reset --merge ORIG_HEAD && git pull'
 alias pullf='git reset --hard HEAD~1 && git pull'
 alias recommit='git commit --amend -m '
 # git reset HEAD^ # uncommit
-
-unalias pushit 2>/dev/null
-pushit () {
-  message=${1:-"update"}
-  git add . && git commit -m "$message" && git push
-}
 
 git_setup(){
 	git init
@@ -169,7 +190,7 @@ alias pi3="ssh pi@192.168.187.103 || ssh pi@fife.entrydns.org -p 57321"
 alias pi3=pi3_connect
 # ssh-copy-id tarch@ssh.fsl.byu.edu
 alias pi2_hard="ssh pi@192.168.187.99 || ssh pi@fife.entrydns.org -p 57322"
-alias pi2_wifi="ssh pi@$wifi_ip || ssh pi@fife.entrydns.org -p 57323"
+alias pi2_wifi="ssh pi@192.168.187.98 || ssh pi@fife.entrydns.org -p 57323"
 alias pi2="pi2_wifi"
 alias map_pi3="sshfs -o StrictHostKeyChecking=no -o nonempty,allow_other,reconnect pi@192.168.187.103:/home/pi /home/${USER}/shares/pi3"
 #alias map_pi2="sudo umount -f /home/${USER}/shares/pi2 || sleep 1 || sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/home/pi /home/${USER}/shares/pi2"
@@ -213,13 +234,13 @@ alias plex='    ssh -p 57321 -L 32401:192.168.187.100:32400 pi@fife.entrydns.org
 # fusermount -u ~/shares/galois_home 
 alias map_galois_data="galois_port22 && /usr/bin/sshfs -p 2222 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/media/data ~/shares/galois_data"
 alias map_galois_home="galois_port22 && sleep 2 & /usr/bin/sshfs -p 2222 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/home/taylor ~/shares/galois_home"
-alias map_brodie="brodie_port22 && sleep 2 & /usr/bin/sshfs -p 2223 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/home/taylor ~/shares/brodie"
+alias map_brodie="brodie_port22 && sleep 2 & fusermount -uz ~/shares/brodie & /usr/bin/sshfs -p 2223 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/home/taylor ~/shares/brodie"
 alias map_mason="/usr/bin/sshfs -o nonempty,reconnect,umask=0000,allow_other,IdentityFile=~/.ssh/id_rsa mason@alexthelion-g10ac:/home/mason ~/shares/mason"
 alias map_galois="map_galois_data & map_galois_home"
 
 alias lab="lab_remote || ssh taylor@192.168.29.56"
 alias map_lab='sudo ~/bashrc/super/ConnectLab'
-alias map_super='sudo ~/bashrc/super/map_super.sh'
+alias map_super='sudo bash ~/bashrc/super/map_super.sh'
 alias map_groups='sudo ~/bashrc/super/map_groups.sh'
 alias shares='map_lab && map_super'
 
@@ -273,3 +294,9 @@ replace() {
             ;;
     esac
 }
+
+
+### Bash Tips:
+
+# Rename files (find/replace)
+# rename 's/find/replace/' *

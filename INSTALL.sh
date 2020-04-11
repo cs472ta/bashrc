@@ -118,6 +118,7 @@ done
 ### BLOCK WEBSITES     ###
 ##########################
 # Block hosts
+mkdir ~/bashrc/ext
 while true; do
     read -p "Do you wish to install WEBSITE HOST BLOCKER? Y/n " yn
     case $yn in
