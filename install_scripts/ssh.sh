@@ -19,6 +19,16 @@ ssh-copy-id tarch@ssh.fsl.byu.edu
 echo "Logging into Schizo"
 ssh-copy-id tarch@schizo.cs.byu.edu
 
+## For SSHFS stuff
+dest="/etc/fuse.confg"
+if [ -f ~/.bashrc ]; then
+    search_string="user_allow_other"
+    grep -q "^$search_string" "$dest" 
+    if [ $? -ne 0 ]; then
+        echo $search_string >> $dest
+    fi
+fi
+
 if [ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == '192.168.187.1' ];
 then
     ssh-copy-id taylor@192.168.187.2
