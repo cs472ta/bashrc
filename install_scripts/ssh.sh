@@ -7,6 +7,7 @@ cat ~/.ssh/id_rsa.pub
 
 # COPY IT TO CLIPBOARD
 chmod 600 ~/.ssh/id_rsa
+sudo -u ssh-add
 
 read -p "Paste to: https://github.com/settings/keys"
 
