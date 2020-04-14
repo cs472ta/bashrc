@@ -1,6 +1,7 @@
 alias vpn_status="curl ipinfo.io/ip"
-#alias unvpn="sudo killall -9 openvpn"
-alias unvpn="sudo ~/bashrc/kill_vpn"
+alias unovpn="sudo ~/bashrc/kill_vpn"
+alias ovpn='sudo openvpn --daemon --cd /home/$USER/bashrc/secure/windscribe/ --config Windscribe-US-West.ovpn && sleep 2 && vpn_status'
 
-alias vpn='sudo openvpn --daemon --cd /etc/openvpn --config ./Windscribe-Canada-West-GCM.ovpn && sleep 2 && vpn_status'
-alias vpn='sudo openvpn --daemon --cd /etc/openvpn --config ./Windscribe-Switzerland-GCM.ovpn && sleep 2 && vpn_status'
+#alias unvpn="sudo killall -9 openvpn"
+#alias vpn='sudo openvpn --daemon --cd /etc/openvpn --config ./Windscribe-Canada-West-GCM.ovpn && sleep 2 && vpn_status'
+#alias vpn='sudo openvpn --daemon --cd /etc/openvpn --config ./Windscribe-Switzerland-GCM.ovpn && sleep 2 && vpn_status'
