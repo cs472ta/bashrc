@@ -70,6 +70,7 @@ if [ -f ~/.bashrc ]; then
 fi
 
 source "/home/$USER/bashrc/master.sh"
+source "/home/$USER/.bashrc"
 
 ##########################
 ###   SSH/SUPER        ###
@@ -172,3 +173,4 @@ torch.cuda.is_available()
 #        * ) echo "Please answer yes or no.";;
 #    esac
 #done
+

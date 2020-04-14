@@ -73,7 +73,7 @@ alias refresh1='cd ~/bashrc && git pull && cd - && refresh'
 alias websites='gedit ~/bashrc/ext/block_hosts/websites.txt'
 alias saveit='cd ~/bashrc && pushit && cd - '
 alias bashrc="nano ~/bashrc/master.sh && refresh"
-alias bashrc2='gedit ~/master.sh && refresh'
+alias bashrc2='gedit ~/bashrc/master.sh && refresh'
 alias sleepy="osync && ~/bashrc/scripts/sleep.sh "
 alias shutty="osync && shutdown "
 #alias sleepy="~/bashrc/super/sleep.sh "
@@ -237,6 +237,9 @@ alias map_galois_home="galois_port22 && sleep 2 & /usr/bin/sshfs -p 2222 -o reco
 alias map_brodie="brodie_port22 && sleep 2 & fusermount -uz ~/shares/brodie & /usr/bin/sshfs -p 2223 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/home/taylor ~/shares/brodie"
 alias map_mason="/usr/bin/sshfs -o nonempty,reconnect,umask=0000,allow_other,IdentityFile=~/.ssh/id_rsa mason@alexthelion-g10ac:/home/mason ~/shares/mason"
 alias map_galois="map_galois_data & map_galois_home"
+
+## Write a script for this
+alias map_galois_local="/usr/bin/sshfs -p 22 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/ ~/shares/galois"
 
 alias lab="lab_remote || ssh taylor@192.168.29.56"
 alias map_lab='sudo ~/bashrc/super/ConnectLab'

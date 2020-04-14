@@ -34,7 +34,6 @@ else
   ssh-copy-id pi@fife.entrydns.org -p 57321
   ssh-copy-id pi@fife.entrydns.org -p 57322
   ssh-copy-id pi@fife.entrydns.org -p 57323
-  ssh-copy-id tarch@galois # copy local ssh to server
   ssh-copy-id taylor@192.168.29.8
   ssh-copy-id mason@alexthelion-g10ac
   ssh-copy-id taylor@galois
