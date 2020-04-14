@@ -239,7 +239,7 @@ alias map_mason="/usr/bin/sshfs -o nonempty,reconnect,umask=0000,allow_other,Ide
 alias map_galois="map_galois_data & map_galois_home"
 
 ## Write a script for this
-alias map_galois_local="~/scripts/map_galois.sh"
+alias map_galois_local="~/bashrc/scripts/map_galois.sh"
 
 alias lab="lab_remote || ssh taylor@192.168.29.56"
 alias map_lab='sudo ~/bashrc/super/ConnectLab'
