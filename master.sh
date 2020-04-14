@@ -232,11 +232,10 @@ alias plex='    ssh -p 57321 -L 32401:192.168.187.100:32400 pi@fife.entrydns.org
 
 # fusermount -u ~/shares/galois_data
 # fusermount -u ~/shares/galois_home 
-alias map_galois_data="galois_port22 && /usr/bin/sshfs -p 2222 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/media/data ~/shares/galois_data"
-alias map_galois_home="galois_port22 && sleep 2 & /usr/bin/sshfs -p 2222 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/home/taylor ~/shares/galois_home"
-alias map_brodie="brodie_port22 && sleep 2 & fusermount -uz ~/shares/brodie & /usr/bin/sshfs -p 2223 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/home/taylor ~/shares/brodie"
-alias map_mason="/usr/bin/sshfs -o nonempty,reconnect,umask=0000,allow_other,IdentityFile=~/.ssh/id_rsa mason@alexthelion-g10ac:/home/mason ~/shares/mason"
-alias map_galois="map_galois_data & map_galois_home"
+alias map_any="~/bashrc/scripts/map_any.sh "
+alias map_brodie="~/bashrc/scripts/map_any.sh brodie taylor 192.168.29.8 2223"
+alias map_mason="map_any alexthelion-g10ac mason alexthelion-g10ac 2224"
+alias map_galois="map_any galois taylor galois 2222"
 
 ## Write a script for this
 alias map_galois_local="~/bashrc/scripts/map_galois.sh"
