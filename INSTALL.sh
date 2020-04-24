@@ -1,3 +1,4 @@
+#!/bin/bash
 # SETUP SCRIPT
 # Choose hostname
 # hostnamectl set-hostname 'TheServe'
@@ -13,6 +14,9 @@
   # -ne -eq for numeric, == and != for string
 
 ### UBUNTU SCREEN PREFERENCES
+
+### SET UBUNTU TO LOCAL TIME (For DUAL BOOTING WITH WINDOWS)
+timedatectl set-local-rtc 1
 
 ### Fix ALT+TAB ISSUES ###
 /usr/bin/gsettings set org.gnome.shell.app-switcher current-workspace-only true
@@ -67,6 +71,7 @@ if [ -f ~/.bashrc ]; then
 fi
 
 source "/home/$USER/bashrc/master.sh"
+source "/home/$USER/.bashrc"
 
 ##########################
 ###   SSH/SUPER        ###
@@ -169,3 +174,4 @@ torch.cuda.is_available()
 #        * ) echo "Please answer yes or no.";;
 #    esac
 #done
+

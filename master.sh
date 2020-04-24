@@ -20,10 +20,21 @@ secure_rc="/home/${USER}/bashrc/secure.sh"
 if test -f "$host_rc"; then source "$host_rc"; fi
 if test -f "$super_rc"; then source "$super_rc"; fi
 if test -f "$secure_rc"; then source "$secure_rc"; fi
-source /home/${USER}/bashrc/scripts/vpn
+
+vpn_path=/home/${USER}/bashrc/scripts/vpn
+if [ -f "$vpn_path" ]; then
+    source $vpn_path
+fi
+
 if test -f "cat ~/cronenv"; then
   alias cron_env="env - `cat ~/cronenv` /bin/sh"
 fi
+
+secure_path="~/super/secure.sh"
+if [ -f "$secure_path" ]; then
+    source $secure_path
+fi
+
 
 alias py="source ./venv/bin/activate"
 alias venv="virtualenv -p python3 venv"
@@ -62,7 +73,7 @@ alias refresh1='cd ~/bashrc && git pull && cd - && refresh'
 alias websites='gedit ~/bashrc/ext/block_hosts/websites.txt'
 alias saveit='cd ~/bashrc && pushit && cd - '
 alias bashrc="nano ~/bashrc/master.sh && refresh"
-alias bashrc2='gedit ~/master.sh && refresh'
+alias bashrc2='gedit ~/bashrc/master.sh && refresh'
 alias sleepy="osync && ~/bashrc/scripts/sleep.sh "
 alias shutty="osync && shutdown "
 #alias sleepy="~/bashrc/super/sleep.sh "
@@ -191,14 +202,14 @@ alias server="ping 192.168.187.100"
 
 ## SSH
 alias schizo="ssh tarch@schizo.cs.byu.edu"
-alias dalai="ssh taylor@192.168.187.2"
+alias brodie='~/bashrc/scripts/ssh_any.sh 192.168.29.8 taylor SCHOOL' #  prestidigitonium.cs.byu.edu
+alias galois='~/bashrc/scripts/ssh_any.sh galois taylor SCHOOL'
+alias dalai='~/bashrc/scripts/ssh_any.sh 192.168.187.2 taylor HOME'
 #alias super="ssh tarch@ssh.fsl.byu.edu"
 alias super="~/bashrc/super/super.sh"
 alias super2='/home/$USER/bashrc/super/super2.sh'
 alias kant="ssh -t tarch@schizo.cs.byu.edu 'ssh taylor@192.168.29.56'"
-alias brodie="ssh -t tarch@schizo.cs.byu.edu 'ssh taylor@192.168.29.8'"
 alias kant_port="ssh -t -L 13389:localhost:3389 tarch@schizo.cs.byu.edu ssh -L 3389:localhost:3389 taylor@192.168.29.56 && sleep 4"
-alias galois="ssh -t tarch@schizo.cs.byu.edu 'ssh taylor@192.168.29.64'"
 alias galois_port3389="ssh -t -L 13389:localhost:3389 tarch@schizo.cs.byu.edu ssh -L 3389:localhost:3389 taylor@192.168.29.64 && sleep 4"
 alias super_mason='~/bashrc/super/super_mason.sh'
 
@@ -221,15 +232,17 @@ alias plex='    ssh -p 57321 -L 32401:192.168.187.100:32400 pi@fife.entrydns.org
 
 # fusermount -u ~/shares/galois_data
 # fusermount -u ~/shares/galois_home 
-alias map_galois_data="galois_port22 && /usr/bin/sshfs -p 2222 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/media/data ~/shares/galois_data"
-alias map_galois_home="galois_port22 && sleep 2 & /usr/bin/sshfs -p 2222 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/home/taylor ~/shares/galois_home"
-alias map_brodie="brodie_port22 && sleep 2 & /usr/bin/sshfs -p 2223 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa taylor@localhost:/home/taylor ~/shares/brodie"
-alias map_mason="/usr/bin/sshfs -o nonempty,reconnect,umask=0000,allow_other,IdentityFile=~/.ssh/id_rsa mason@alexthelion-g10ac:/home/mason ~/shares/mason"
-alias map_galois="map_galois_data & map_galois_home"
+alias map_any="~/bashrc/scripts/map_any.sh "
+alias map_brodie="~/bashrc/scripts/map_any.sh brodie taylor 192.168.29.8 2223"
+alias map_mason="map_any alexthelion-g10ac mason alexthelion-g10ac 2224"
+alias map_galois="map_any galois taylor galois 2222"
+
+## Write a script for this
+alias map_galois_local="~/bashrc/scripts/map_galois.sh"
 
 alias lab="lab_remote || ssh taylor@192.168.29.56"
 alias map_lab='sudo ~/bashrc/super/ConnectLab'
-alias map_super='sudo ~/bashrc/super/map.sh'
+alias map_super='sudo bash ~/bashrc/super/map_super.sh'
 alias map_groups='sudo ~/bashrc/super/map_groups.sh'
 alias shares='map_lab && map_super'
 
@@ -260,6 +273,40 @@ alias yt='cd /media/data/YT && youtube-dl -f best -ciw  -o "%(uploader)s/%(playl
 # PDF Studio
 alias pdf_studio="rm -r ~/.pdfstudio12"
 alias unlock_pdf='"$ONEDRIVE/Documents/Notes for Tools/Linux/scripts/pdf/unlock_all_in_folder.sh"'
+
+# SBATCH TRICKS
+alias sbatch_local="for i in \$(ls *.sh); do sbatch \$i; done;"
+alias sbatch_r="for i in \$(find . -name '*.sh'); do sbatch \$i; done;"
+alias start_scripts="find . -name '*.sh' -exec {} \;"
+alias ntasks="find . -type f -name '*.sh' -print0 | xargs -0 sed -i 's/--ntasks=28/--ntasks=7/g' && find . -type f -name '*.sh' -print0 | xargs -0 sed -i 's/--mem-per-cpu=2666MB/--mem-per-cpu=8000MB/g'"
+alias clean_git="java -jar ~/bfg.jar --strip-blobs-bigger-than 50M ."
+
+unalias sbatcher 2>/dev/null
+sbatcher() {
+    file_name="${1:-*.sh}"
+    current_path=$(realpath .)
+    echo $file_name
+    for i in $(find . -name ${file_name}); do
+    #for d in ./*; do
+        #base=$(basename $i) # the file name
+        #"$(dirname -- "$file")" # the parent name
+        # script_path="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" # the script path name
+        # realpath . # the full expanded path
+        #[[ $base =~ ^(archive|ARCHIVE)$ ]] && continue
+        if ! [[ $i =~ '/archive/' ]]; then
+            echo $i
+            parent=$(dirname --  $i)
+            full_path=$(realpath $i)
+            cd $parent
+            if [ -x "$(command -v sbatch)" ]; then
+                sbatch $full_path
+            else
+                echo "sbatch not installed"
+            fi
+            cd $current_path
+        fi
+    done;
+}
 
 # Projects
 alias ss="conda activate $HWR_ENV && github && cd simple_hwr"
