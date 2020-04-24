@@ -229,7 +229,7 @@ alias map_galois="map_galois_data & map_galois_home"
 
 alias lab="lab_remote || ssh taylor@192.168.29.56"
 alias map_lab='sudo ~/bashrc/super/ConnectLab'
-alias map_super='sudo ~/bashrc/super/map_super.sh'
+alias map_super='sudo ~/bashrc/super/map.sh'
 alias map_groups='sudo ~/bashrc/super/map_groups.sh'
 alias shares='map_lab && map_super'
 
