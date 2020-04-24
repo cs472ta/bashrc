@@ -314,18 +314,25 @@ alias synth="github && cd handwriting-synthesis && conda activate tf16"
 alias revisdom="pkill -f visdom && ss && visdom && sleep 5 && python hwr_utils/visualize.py"
 
 unalias replace 2>/dev/null
-replace() {
+replace() { # don't use * in specifying extension because it expands too soon
+            # need to escape "/" with "\"
+            # Normal sed usage: sed -i 's~icdar~ICDAR~g' ./TEST.json
+
     message="${3:-'.sh'}"
     echo "Find: $1" 
     echo "Replace: $2"
     echo "Extension: ${3}"
     echo "Recursive: True"
+    find . -type f -name "*$3" -print0
+    echo -e "\n xargs -0 sed -i 's~${1}~${2}~g'"
     read -r -p "Are you sure? [y/N] " response
     case "$response" in
         [yY][eE][sS]|[yY]) 
-            find . -type f -name "*$3" -print0 | xargs -0 sed -i "s/$1/$2/g"
+            #find . -type f -name "*$3" -print0 | xargs -0 sed -i 's@$1@$2@g'
+            #find . -type f -name "*$3" -print0 | xargs -0 sed -i 's@$1@$2@g'
+            find . -type f -name "*$3" -exec sed -i "s@$1@$2@g" {} \;
             ;;
-        *)
+        *) # anything else
             echo "No replace"
             ;;
     esac
