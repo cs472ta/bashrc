@@ -202,14 +202,14 @@ alias server="ping 192.168.187.100"
 
 ## SSH
 alias schizo="ssh tarch@schizo.cs.byu.edu"
-alias dalai="ssh taylor@192.168.187.2"
+alias brodie='~/bashrc/scripts/ssh_any.sh 192.168.29.8 taylor SCHOOL' #  prestidigitonium.cs.byu.edu
+alias galois='~/bashrc/scripts/ssh_any.sh galois taylor SCHOOL'
+alias dalai='~/bashrc/scripts/ssh_any.sh 192.168.187.2 taylor HOME'
 #alias super="ssh tarch@ssh.fsl.byu.edu"
 alias super="~/bashrc/super/super.sh"
 alias super2='/home/$USER/bashrc/super/super2.sh'
 alias kant="ssh -t tarch@schizo.cs.byu.edu 'ssh taylor@192.168.29.56'"
-alias brodie="ssh -t tarch@schizo.cs.byu.edu 'ssh taylor@192.168.29.8'"
 alias kant_port="ssh -t -L 13389:localhost:3389 tarch@schizo.cs.byu.edu ssh -L 3389:localhost:3389 taylor@192.168.29.56 && sleep 4"
-alias galois="ssh -t tarch@schizo.cs.byu.edu 'ssh taylor@192.168.29.64'"
 alias galois_port3389="ssh -t -L 13389:localhost:3389 tarch@schizo.cs.byu.edu ssh -L 3389:localhost:3389 taylor@192.168.29.64 && sleep 4"
 alias super_mason='~/bashrc/super/super_mason.sh'
 
