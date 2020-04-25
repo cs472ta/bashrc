@@ -169,7 +169,7 @@ pi3_connect()
 {
     # If in a git repo - call git mv. otherwise- call mv
     #if [ $(iwgetid -r) == "FifeNet" ];
-    if [ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == '192.168.187.1' ];
+    if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') =~ 192.168.18[78].1 ]];
     then
         ssh pi@192.168.187.103 
     else 
@@ -351,3 +351,7 @@ replace() { # don't use * in specifying extension because it expands too soon
 
 # Rename files (find/replace)
 # rename 's/find/replace/' *
+
+if [ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == "192.168.188.1" ]; then
+	echo "WARNING: Connected to ARCHINET"
+fi
