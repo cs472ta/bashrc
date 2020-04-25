@@ -1,3 +1,11 @@
+## Bash history stuff
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+export HISTCONTROL=ignoredups
+export HISTIGNORE="ls:ps:history:pullit:push:pull:git pull:git push:refresh:refresh1:bashrc"
+
+PROMPT_COMMAND='history -a'
+
 # Path
 export "PATH=$PATH:~/bashrc/bin" # add standard command binaries
 

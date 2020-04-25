@@ -1,4 +1,5 @@
 #!/bin/bash
+LOCAL_USER="$(logname)"
 # SETUP SCRIPT
 # Choose hostname
 # hostnamectl set-hostname 'TheServe'
@@ -26,7 +27,7 @@ timedatectl set-local-rtc 1
 #################
 
 # If it doesn't exist, create it, ask for paths
-hostname_rc="/home/$USER/bashrc/configs/${HOSTNAME}.sh"
+hostname_rc="/home/$LOCAL_USER/bashrc/configs/${HOSTNAME}.sh"
 #echo `test -f "$hostname_rc"`
 #echo `test -f INSTALL.sh`
 echo $hostname_rc
@@ -35,8 +36,8 @@ if [ ! -f $hostname_rc ]; then
   read -p "HWR env name: " hwr_env
   read -p "OneDrive Path: " onedrive_path
 
-  github_path=${github_path:-"/home/$USER/Github"}
-  onedrive_path=${onedrive_path:-"/home/$USER/OneDrive"}
+  github_path=${github_path:-"/home/$LOCAL_USER/Github"}
+  onedrive_path=${onedrive_path:-"/home/$LOCAL_USER/OneDrive"}
   hwr_env=${hwr_env:-"hwr"}
 
   echo "GITHUB=${github_path}" > $hostname_rc
@@ -44,8 +45,8 @@ if [ ! -f $hostname_rc ]; then
   echo "HWR_ENV=${hwr_env}" >> $hostname_rc
 fi
 
-chmod 755 /home/$USER/bashrc/install_scripts/*
-chmod 755 "/home/$USER/bashrc/INSTALL.sh"
+chmod 755 /home/$LOCAL_USER/bashrc/install_scripts/*
+chmod 755 "/home/$LOCAL_USER/bashrc/INSTALL.sh"
 
 ##########################
 ### INSTALL SMALL BINS ###
@@ -63,15 +64,15 @@ sudo apt install xclip
 
 # Add bashrc to sources
 if [ -f ~/.bashrc ]; then
-    KEEP_EN="source /home/$USER/bashrc/master.sh"
-    grep -q "$KEEP_EN" /home/$USER/bashrc/master.sh
+    KEEP_EN="source /home/$LOCAL_USER/bashrc/master.sh"
+    grep -q "$KEEP_EN" /home/$LOCAL_USER/bashrc/master.sh
     if [ $? -ne 0 ]; then
-        echo "source /home/$USER/bashrc/master.sh" >> ~/.bashrc
+        echo "source /home/$LOCAL_USER/bashrc/master.sh" >> ~/.bashrc
     fi
 fi
 
-source "/home/$USER/bashrc/master.sh"
-source "/home/$USER/.bashrc"
+source "/home/$LOCAL_USER/bashrc/master.sh"
+source "/home/$LOCAL_USER/.bashrc"
 
 ##########################
 ###   SSH/SUPER        ###
@@ -81,7 +82,7 @@ source "/home/$USER/.bashrc"
 while true; do
     read -p "Do you wish to install SSH keys? Y/n " yn
     case $yn in
-        [Yy]* ) bash "/home/$USER/bashrc/install_scripts/ssh.sh"; break;;
+        [Yy]* ) bash "/home/$LOCAL_USER/bashrc/install_scripts/ssh.sh"; break;;
         [Nn]* ) break;;
         * ) echo "Please answer yes or no.";;
     esac
@@ -90,7 +91,7 @@ done
 while true; do
     read -p "Do you wish to install Super Computer keys? Y/n " yn
     case $yn in
-        [Yy]* ) bash bash "/home/$USER/bashrc/install_scripts/super.sh"; break;;
+        [Yy]* ) bash bash "/home/$LOCAL_USER/bashrc/install_scripts/super.sh"; break;;
         [Nn]* ) break;;
         * ) echo "Please answer yes or no.";;
     esac
@@ -110,7 +111,7 @@ git config --global credential.helper 'cache --timeout=3600000'
 while true; do
     read -p "Do you wish to install ONEDRIVE SYNC? Y/n " yn
     case $yn in
-        [Yy]* ) bash "/home/$USER/bashrc/install_scripts/install_onedrive.sh"; break;;
+        [Yy]* ) bash "/home/$LOCAL_USER/bashrc/install_scripts/install_onedrive.sh"; break;;
         [Nn]* ) break;;
         * ) echo "Please answer yes or no.";;
     esac
