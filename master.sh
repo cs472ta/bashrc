@@ -264,7 +264,19 @@ alias connectit="galois_port22 && brodie_port22 && galois_vis && super"
 
 
 ## WOL
-alias wol="wakeonlan 40:8D:5C:0C:3F:CA" # wake the server
+unalias wol 2>/dev/null
+wol()
+{
+    # If in a git repo - call git mv. otherwise- call mv
+    if [ $(iwgetid -r) == "FifeNet" ];
+    then
+	wakeonlan 40:8D:5C:0C:3F:CA
+    else 
+        echo "Warning: NOT ON FIFENET!"
+    fi
+}
+
+#alias wol="wakeonlan 40:8D:5C:0C:3F:CA" # wake the server
 alias wol_galois="wakeonlan 70:85:c2:b9:14:6b"
 alias wol_kant="wakeonlan 78:24:af:83:2f:c9"
 
