@@ -5,7 +5,7 @@ ip=${3-$hostname}
 port=${4-2222}
 
 MNT_DIR=~/shares/$hostname
-
+echo $MNT_DIR
 if [ ! -d ~/shares ]; then mkdir ~/shares; fi
 if [ ! -d $MNT_DIR ]; then mkdir $MNT_DIR; fi
 

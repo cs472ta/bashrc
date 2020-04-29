@@ -246,7 +246,7 @@ alias plex='    ssh -p 57321 -L 32401:192.168.187.100:32400 pi@fife.entrydns.org
 alias map_any="~/bashrc/scripts/map_any.sh "
 alias map_brodie="~/bashrc/scripts/map_any.sh brodie taylor 192.168.29.8 2223"
 alias map_mason="map_any alexthelion-g10ac mason alexthelion-g10ac 2224"
-alias map_galois="map_any galois taylor galois 2222"
+alias map_galois="map_any 'galois' taylor 'galois' 2222"
 
 ## Write a script for this
 alias map_galois_local="~/bashrc/scripts/map_galois.sh"
