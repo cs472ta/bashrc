@@ -180,11 +180,10 @@ pi3_connect()
 theserve_connect()
 {
     message=${1:-"no_vpn"}
-    # If in a git repo - call git mv. otherwise- call mv
     if [ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == '192.168.187.1' ];
     then
         ssh taylor@192.168.187.100
-    elif [ $1 == "vpn" ]; then
+    elif [ "$1" == "vpn" ]; then
       ssh -p 57321 -L 13390:192.168.187.100:3389 pi@fife.entrydns.org
     else
     	ssh pi@fife.entrydns.org -p 57320
