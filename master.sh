@@ -214,6 +214,8 @@ alias server="ping 192.168.187.100"
 alias schizo="ssh tarch@schizo.cs.byu.edu"
 alias brodie='~/bashrc/scripts/ssh_any.sh 192.168.29.8 taylor SCHOOL' #  prestidigitonium.cs.byu.edu
 alias galois='~/bashrc/scripts/ssh_any.sh galois taylor SCHOOL'
+alias galois_schizo='~/bashrc/scripts/ssh_any.sh galois taylor SCHOOL REMOTE'
+
 alias dalai='~/bashrc/scripts/ssh_any.sh 192.168.187.2 taylor HOME'
 #alias super="ssh tarch@ssh.fsl.byu.edu"
 alias super="~/bashrc/super/super.sh"
@@ -245,7 +247,7 @@ alias plex='    ssh -p 57321 -L 32401:192.168.187.100:32400 pi@fife.entrydns.org
 alias map_any="~/bashrc/scripts/map_any.sh "
 alias map_brodie="~/bashrc/scripts/map_any.sh brodie taylor 192.168.29.8 2223"
 alias map_mason="map_any alexthelion-g10ac mason alexthelion-g10ac 2224"
-alias map_galois="map_any galois taylor galois 2222"
+alias map_galois="map_any 'galois' taylor 'galois' 2222"
 
 ## Write a script for this
 alias map_galois_local="~/bashrc/scripts/map_galois.sh"
@@ -263,7 +265,19 @@ alias connectit="galois_port22 && brodie_port22 && galois_vis && super"
 
 
 ## WOL
-alias wol="wakeonlan 40:8D:5C:0C:3F:CA" # wake the server
+unalias wol 2>/dev/null
+wol()
+{
+    # If in a git repo - call git mv. otherwise- call mv
+    if [ $(iwgetid -r) == "FifeNet" ];
+    then
+	wakeonlan 40:8D:5C:0C:3F:CA
+    else 
+        echo "Warning: NOT ON FIFENET!"
+    fi
+}
+
+#alias wol="wakeonlan 40:8D:5C:0C:3F:CA" # wake the server
 alias wol_galois="wakeonlan 70:85:c2:b9:14:6b"
 alias wol_kant="wakeonlan 78:24:af:83:2f:c9"
 
