@@ -3,6 +3,7 @@
 .idea
 *.xml
 *.iml
+*.swp
 
 # Protected information
 secure/
