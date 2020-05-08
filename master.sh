@@ -371,3 +371,9 @@ replace() { # don't use * in specifying extension because it expands too soon
 if [ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == "192.168.188.1" ]; then
 	echo "WARNING: Connected to ARCHINET"
 fi
+
+
+alias avatar_server='cd $GITHUB/personal_projects/avatarify && bash run.sh --is-worker'
+alias avatar_socket='ssh -L 5556:192.168.29.64:5556 tarch@schizo.cs.byu.edu'
+alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --worker-host localhost:5556'
+
