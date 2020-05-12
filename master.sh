@@ -89,8 +89,8 @@ alias hibernate="systemctl hibernate -i"
 alias suspend="sudo pkill -f sshfs && systemctl suspend -i"
 alias wanip='dig @resolver1.opendns.com ANY myip.opendns.com +short'
 alias sudo='sudo '
-alias omon='/usr/local/bin/onedrive --syncdir $ONEDRIVE --monitor  > /home/$USER/bashrc/onedrive/onedrive_manual.log'
-alias osync='/usr/local/bin/onedrive --synchronize --syncdir $ONEDRIVE'
+alias omon='/usr/local/bin/onedrive --syncdir $ONEDRIVE --monitor --check-for-nosync > /home/$USER/bashrc/onedrive/onedrive_manual.log'
+alias osync='/usr/local/bin/onedrive --synchronize --syncdir $ONEDRIVE --check-for-nosync'
 alias osync_log='osync > /home/$USER/bashrc/onedrive/onedrive_manual.log'
 alias reset_mouse="sudo modprobe -r psmouse && sudo mode probe psmouse"
 alias enable_suspend='sudo sh -c "echo XHC > /proc/acpi/wakeup"'
@@ -374,6 +374,6 @@ fi
 
 
 alias avatar_server='cd $GITHUB/personal_projects/avatarify && bash run.sh --is-worker'
-alias avatar_socket='ssh -L 5556:192.168.29.64:5556 tarch@schizo.cs.byu.edu'
+alias avatar_socket='ssh -L 5556:192.168.29.64:5556 tarch@schizo.cs.byu.edu '
 alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --worker-host localhost:5556'
 
