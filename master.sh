@@ -198,7 +198,7 @@ alias pi3=pi3_connect
 # ssh-copy-id tarch@ssh.fsl.byu.edu
 alias pi2_hard="ssh pi@192.168.187.99 || ssh pi@fife.entrydns.org -p 57322"
 alias pi2_wifi="ssh pi@192.168.187.98 || ssh pi@fife.entrydns.org -p 57323"
-alias pi2="pi2_wifi"
+alias pi2="pi2_hard"
 alias pi2="ssh_any pi2"
 alias pi3="ssh_any pi3"
 
@@ -374,6 +374,6 @@ fi
 
 
 alias avatar_server='cd $GITHUB/personal_projects/avatarify && bash run.sh --is-worker'
-alias avatar_socket='ssh -L 5556:192.168.29.64:5556 tarch@schizo.cs.byu.edu '
-alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --worker-host localhost:5556'
+alias avatar_socket='ssh -L 5556:192.168.29.8:5556 tarch@schizo.cs.byu.edu'
+alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --worker-host localhost'
 
