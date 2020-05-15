@@ -179,13 +179,16 @@ pi3_connect()
 
 theserve_connect()
 {
-    message=${1:-"no_vpn"}
-    if [ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == '192.168.187.1' ];
+    message=${1:-"vpn"}
+    if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == *192.168.187.1* ]];
     then
+	echo "on local network..."
         ssh taylor@192.168.187.100
     elif [ "$1" == "vpn" ]; then
+      echo "opening tunnel through pi3 ver1"
       ssh -p 57321 -L 13390:192.168.187.100:3389 pi@fife.entrydns.org
     else
+	echo "opening tunnel through pi3 ver2"
     	ssh pi@fife.entrydns.org -p 57320
     fi
 }
@@ -368,7 +371,7 @@ replace() { # don't use * in specifying extension because it expands too soon
 # Rename files (find/replace)
 # rename 's/find/replace/' *
 
-if [ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == "192.168.188.1" ]; then
+if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == *192.168.188.1* ]]; then
 	echo "WARNING: Connected to ARCHINET"
 fi
 
