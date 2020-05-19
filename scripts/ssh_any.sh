@@ -31,7 +31,7 @@ if [ $hostname = 'schizo.cs.byu.edu' ]; then
 elif [ $hostname = 'pi3' ]; then
 	if [ "$(iwgetid -r)" = "FifeNet" ]; then ssh pi@192.168.187.103; else ssh pi@fife.entrydns.org -p 57321; fi
 elif [ $hostname = 'pi2' ]; then
-	if [ "$(iwgetid -r)" = "FifeNet" ]; then ssh pi@192.168.187.99; else ssh pi@fife.entrydns.org -p 57323; fi
+	if [ "$(iwgetid -r)" = "FifeNet" ]; then ssh pi@192.168.187.99; else ssh pi@fife.entrydns.org -p 57322; fi # 57322 for WiFi; 57322 for Eth 
 elif [ "$CURRENT_NETWORK" = 'LOCAL' ] ; then
 	echo "on local network"
 	ssh $USER@$hostname
