@@ -1,1 +1,4 @@
-Galois: AnyDesk 663 703 111
+AnyDesk Addresses
+Galois:    663703111
+DalaiLama: 158467604
+Mason:     783425554
