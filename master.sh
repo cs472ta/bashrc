@@ -272,7 +272,8 @@ unalias wol 2>/dev/null
 wol()
 {
     # If in a git repo - call git mv. otherwise- call mv
-    if [ $(iwgetid -r) == "FifeNet" ];
+    #if [ $(iwgetid -r) == "FifeNet" ];
+    if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') =~ 192.168.18[7].1 ]];
     then
 	wakeonlan 40:8D:5C:0C:3F:CA
     else 
