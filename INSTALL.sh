@@ -19,6 +19,9 @@ LOCAL_USER="$(logname)"
 ### SET UBUNTU TO LOCAL TIME (For DUAL BOOTING WITH WINDOWS)
 timedatectl set-local-rtc 1
 
+### Config (misc config, e.g. spaces/tabs for nano)
+bash ~/bashrc/CONFIG.sh
+
 ### Fix ALT+TAB ISSUES ###
 /usr/bin/gsettings set org.gnome.shell.app-switcher current-workspace-only true
 
