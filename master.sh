@@ -95,7 +95,7 @@ alias osync_log='osync > /home/$USER/bashrc/onedrive/onedrive_manual.log'
 alias reset_mouse="sudo modprobe -r psmouse && sudo mode probe psmouse"
 alias enable_suspend='sudo sh -c "echo XHC > /proc/acpi/wakeup"'
 alias pdf_studio='rm -r /home/${USER}/.pdfstudio12' #&& cp -r /home/${USER}/.pdfstudio12_backup/ /home/${USER}/.pdfstudio12/'
-alias unlock='$ONEDRIVE/Documents/Notes for Tools/Linux/scripts/pdf/unlock_all_in_folder.sh'fitting
+alias unlock='sh "$ONEDRIVE/Documents/Notes for Tools/Linux/scripts/pdf/unlock_all_in_folder.sh"'
 alias trash='cd ~/.local/share/Trash'
 alias count="ls -1 | wc -l"
 alias cps="xsel -b < " # copy to text
@@ -193,6 +193,7 @@ theserve_connect()
     fi
 }
 
+alias router="ssh root@192.168.187.1"
 alias theserve="theserve_connect "
 alias ssh_any="~/bashrc/scripts/ssh_any.sh "
 alias pi3="if (iwgetid -r)==(FifeNet) ssh pi@192.168.187.103 || ssh pi@136.36.13.188 -p 57321"
@@ -205,8 +206,16 @@ alias pi2="pi2_hard"
 alias pi2="ssh_any pi2"
 alias pi3="ssh_any pi3"
 
-alias map_pi3="sshfs -o StrictHostKeyChecking=no -o nonempty,allow_other,reconnect pi@192.168.187.103:/home/pi /home/${USER}/shares/pi3"
+alias pi3_unmount="sudo umount -f -l /home/${USER}/shares/pi3"
+alias map_pi3_local="pi3_unmount & sshfs -o StrictHostKeyChecking=no -o nonempty,allow_other,reconnect pi@192.168.187.103:/home/pi /home/${USER}/shares/pi3"
 #alias map_pi2="sudo umount -f /home/${USER}/shares/pi2 || sleep 1 || sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/home/pi /home/${USER}/shares/pi2"
+alias map_pi3_remote="pi3_unmount & /usr/bin/sshfs -p 57321 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa  pi@fife.entrydns.org:/home/pi /home/${USER}/shares/pi3"
+alias pi3_port22="ssh -L 3000:pi@fife.entrydns.org:22 localhost"
+
+
+
+#ssh pi@fife.entrydns.org -p 57321
+
 alias map_pi2="sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/home/pi /home/${USER}/shares/pi2"
 alias map_pi2_root="sudo umount -f /home/${USER}/shares/pi2_root || sleep 1 || sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/ /home/${USER}/shares/pi2_root"
 alias map_schizo="sshfs tarch@schizo.cs.byu.edu:/users/grads/tarch /media/BYUCS/"
@@ -251,6 +260,7 @@ alias map_any="~/bashrc/scripts/map_any.sh "
 alias map_brodie="~/bashrc/scripts/map_any.sh brodie taylor 192.168.29.8 2223"
 alias map_mason="map_any alexthelion-g10ac mason alexthelion-g10ac 2224"
 alias map_galois="map_any 'galois' taylor 'galois' 2222"
+#alias map_pi3="map_any 'raspberrypi' pi 192.168.187.103 3000"
 
 ## Write a script for this
 alias map_galois_local="~/bashrc/scripts/map_galois.sh"
