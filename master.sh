@@ -383,3 +383,5 @@ alias avatar_server='cd $GITHUB/personal_projects/avatarify && bash run.sh --is-
 alias avatar_socket='ssh -L 5556:192.168.29.8:5556 tarch@schizo.cs.byu.edu'
 alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --worker-host localhost'
 
+alias dual="xrandr --output HDMI-0 --primary --output DP-1 --auto --right-of HDMI-0"
+alias single="xrandr --output HDMI-0 --primary --output DP-1 --off"
