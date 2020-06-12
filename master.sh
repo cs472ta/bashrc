@@ -389,6 +389,17 @@ if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == *192.168.188.1* ]]; the
 fi
 
 
+unalias countdown 2>/dev/null
+bash ~/bashrc/ext/progress-bar.sh/progress-bar.sh
+countdown() {
+    minutes=${1:-5}
+    #printf 'Minutes : '
+    #read -r minutes
+    progress-bar $(($minutes*60))
+    play -v .1 ~/bashrc/ext/alarm.mp3
+}
+
+
 alias avatar_server='cd $GITHUB/personal_projects/avatarify && bash run.sh --is-worker'
 alias avatar_socket='ssh -L 5556:192.168.29.8:5556 tarch@schizo.cs.byu.edu'
 alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --worker-host localhost'
