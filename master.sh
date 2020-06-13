@@ -390,7 +390,7 @@ fi
 
 
 unalias countdown 2>/dev/null
-bash ~/bashrc/ext/progress-bar.sh/progress-bar.sh
+source ~/bashrc/ext/progress-bar.sh/progress-bar.sh
 countdown() {
     minutes=${1:-5}
     #printf 'Minutes : '
