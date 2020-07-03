@@ -406,3 +406,4 @@ alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --worker-hos
 
 alias dual="xrandr --output HDMI-0 --primary --output DP-1 --auto --right-of HDMI-0"
 alias single="xrandr --output HDMI-0 --primary --output DP-1 --off"
+
