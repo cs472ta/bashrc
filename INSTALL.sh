@@ -16,6 +16,9 @@ LOCAL_USER="$(logname)"
 
 ### UBUNTU SCREEN PREFERENCES
 
+## Allow other for SSH drives
+echo user_allow_other | sudo tee -a /etc/fuse.conf
+
 ### SET UBUNTU TO LOCAL TIME (For DUAL BOOTING WITH WINDOWS)
 timedatectl set-local-rtc 1
 
@@ -25,9 +28,18 @@ bash ~/bashrc/CONFIG.sh
 ### Fix ALT+TAB ISSUES ###
 /usr/bin/gsettings set org.gnome.shell.app-switcher current-workspace-only true
 
+### NTFS Read/Write
+sudo apt-get remove ntfsprogs && sudo apt-get install ntfs-3g
+# sudo ntfsfix /dev/sdxX <- for Windows hibernation etc.
+
 #################
 ### SET PATHS ###
 #################
+
+## Make sharing paths
+mkdir /home/$LOCAL_USER/shares/pi2
+mkdir /home/$LOCAL_USER/shares/pi3
+
 
 # If it doesn't exist, create it, ask for paths
 hostname_rc="/home/$LOCAL_USER/bashrc/configs/${HOSTNAME}.sh"
