@@ -64,6 +64,8 @@ sudo apt install git
 sudo apt install openssh-server
 sudo apt install xsel
 sudo apt install xclip
+sudo apt install sox libsox-fmt-mp3 # for playing alarm
+
 
 ###########################
 ### Add BASHRC COMMANDS ###
