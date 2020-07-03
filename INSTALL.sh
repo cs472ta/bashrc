@@ -25,6 +25,10 @@ bash ~/bashrc/CONFIG.sh
 ### Fix ALT+TAB ISSUES ###
 /usr/bin/gsettings set org.gnome.shell.app-switcher current-workspace-only true
 
+### NTFS Read/Write
+sudo apt-get remove ntfsprogs && sudo apt-get install ntfs-3g
+# sudo ntfsfix /dev/sdxX <- for Windows hibernation etc.
+
 #################
 ### SET PATHS ###
 #################
