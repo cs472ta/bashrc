@@ -2,6 +2,13 @@
 
 SLEEP_DURATION=${SLEEP_DURATION:=1}  # default to 1 second, use to speed up tests
 
+already_done() { 
+for (( done=0; done<(elapsed / fit_to_screen) ; done=done+1 )); do 
+	printf "#"
+done
+}
+
+
 progress-bar() {
   local duration
   local columns
@@ -21,7 +28,6 @@ progress-bar() {
     fit_to_screen=$((fit_to_screen+1)); 
   fi
 
-  already_done() { for ((done=0; done<(elapsed / fit_to_screen) ; done=done+1 )); do printf "▇"; done }
   remaining() { for (( remain=(elapsed/fit_to_screen) ; remain<(duration/fit_to_screen) ; remain=remain+1 )); do printf " "; done }
   percentage() { printf "| %s%%" $(( ((elapsed)*100)/(duration)*100/100 )); }
   clean_line() { printf "\r"; }
