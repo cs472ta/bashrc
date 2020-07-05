@@ -125,6 +125,10 @@ done
 ##########################
 ### BLOCK WEBSITES     ###
 ##########################
+
+# Progress bar
+cd ~/bashrc/ext/ && git clone https://github.com/edouard-lopez/progress-bar.sh
+
 # Block hosts
 mkdir ~/bashrc/ext
 while true; do
