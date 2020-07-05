@@ -205,8 +205,8 @@ alias pi3=pi3_connect
 alias pi2_hard="ssh pi@192.168.187.99 || ssh pi@fife.entrydns.org -p 57322"
 alias pi2_wifi="ssh pi@192.168.187.98 || ssh pi@fife.entrydns.org -p 57323"
 alias pi2="pi2_hard"
-alias pi2="ssh_any pi2"
-alias pi3="ssh_any pi3"
+alias pi2="ssh_any pi2 taylor HOME"
+alias pi3="ssh_any pi3 taylor HOME"
 
 alias pi3_unmount="sudo umount -f -l /home/${USER}/shares/pi3"
 alias map_pi3_local="pi3_unmount & sshfs -o StrictHostKeyChecking=no -o nonempty,allow_other,reconnect pi@192.168.187.103:/home/pi /home/${USER}/shares/pi3"
@@ -218,7 +218,7 @@ alias pi3_port22="ssh -L 3000:pi@fife.entrydns.org:22 localhost"
 
 #ssh pi@fife.entrydns.org -p 57321
 
-alias map_pi2="sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/home/pi /home/${USER}/shares/pi2"
+alias map_pi2="sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.99:/home/pi /home/${USER}/shares/pi2"
 alias map_pi2_root="sudo umount -f /home/${USER}/shares/pi2_root || sleep 1 || sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/ /home/${USER}/shares/pi2_root"
 alias map_schizo="sshfs tarch@schizo.cs.byu.edu:/users/grads/tarch /media/BYUCS/"
 alias plex="sudo systemctl start plexmediaserver"
@@ -406,3 +406,4 @@ alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --worker-hos
 
 alias dual="xrandr --output HDMI-0 --primary --output DP-1 --auto --right-of HDMI-0"
 alias single="xrandr --output HDMI-0 --primary --output DP-1 --off"
+
