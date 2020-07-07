@@ -197,7 +197,14 @@ theserve_connect()
 
 alias router="ssh root@192.168.187.1"
 alias theserve="theserve_connect "
-alias ssh_any="~/bashrc/scripts/ssh_any.sh "
+
+## Can't use positional arguments with alias!
+#alias ssh_any="~/bashrc/scripts/ssh_any.sh "
+unalias ssh_any
+ssh_any() { ~/bashrc/scripts/ssh_any.sh $1 $2 $3 $4; }
+
+
+
 alias pi3="if (iwgetid -r)==(FifeNet) ssh pi@192.168.187.103 || ssh pi@136.36.13.188 -p 57321"
 alias pi3="ssh pi@192.168.187.103 || ssh pi@fife.entrydns.org -p 57321"
 alias pi3=pi3_connect
