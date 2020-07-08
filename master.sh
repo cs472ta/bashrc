@@ -165,7 +165,7 @@ alias vnc='vncserver -geometry 1980x1080'
 ## Distraction free, block hosts
 alias block="sudo python3 /home/$USER/bashrc/ext/block_hosts/block.py "
 alias unblock="sudo python3 /home/$USER/bashrc/ext/block_hosts/block.py --unblock "
-
+alias break_mode="sudo python3 /home/$USER/bashrc/ext/block_hosts/block.py --break_mode "
 
 pi3_connect()
 {
