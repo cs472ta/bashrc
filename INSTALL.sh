@@ -32,6 +32,9 @@ bash ~/bashrc/CONFIG.sh
 sudo apt-get remove ntfsprogs && sudo apt-get install ntfs-3g
 # sudo ntfsfix /dev/sdxX <- for Windows hibernation etc.
 
+# Route etc.
+sudo apt install net-tools
+
 #################
 ### SET PATHS ###
 #################
@@ -179,6 +182,29 @@ done
 # Install NVIDIA Driver
 
 # Test pytorch
+while true; do
+    read -p "Do you want to test torch / cuda? (must have already activated your environment" yn
+    case $yn in
+        [Yy]* ) 
+
+
+python
+import torch
+torch.cuda.current_device()
+torch.cuda.device(0)
+torch.cuda.device_count()
+torch.cuda.get_device_name(0)
+torch.cuda.is_available()
+
+                break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+
+
+
 python
 import torch
 torch.cuda.current_device()
