@@ -10,8 +10,12 @@ TheServe (Linux): 545002835
 	cp /path/to/my/key/id_rsa ~/.ssh/id_rsa
 	cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub
 	# change permissions on file
-	sudo chmod 600 ~/.ssh/id_rsa
-	sudo chmod 600 ~/.ssh/id_rsa.pub
+    sudo chmod 755  ~/.ssh/ -R
+    sudo chmod 600  ~/.ssh/authorized_keys
+    sudo chmod 600 ~/.ssh/id_rsa.pub
+    sudo chmod 600 ~/.ssh/id_rsa
+
+
 	# start the ssh-agent in the background
 	eval $(ssh-agent -s)
 	# make ssh agent to actually use copied key

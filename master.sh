@@ -195,6 +195,29 @@ theserve_connect()
     fi
 }
 
+pi2_connect()
+{
+    # Run "pi2_connect vpn" to tunnel through Pi3
+    message=${1:-"vpn"}
+    if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == *192.168.187.1* ]];
+    then
+    echo "on local network..."
+        ssh pi@192.168.187.99
+    elif [ "$1" == "vpn" ]; then
+      echo "opening tunnel through pi3 ver1"
+      # localhost:18080 on client to connect
+      # run this on client
+      # 57321 => pi3:22
+      ssh -p 57321 -L 18080:192.168.187.99:8080 pi@fife.entrydns.org
+    else
+    echo "opening tunnel through pi3 ver2"
+        # 57320 => TheServe:22
+        ssh taylor@fife.entrydns.org -p 57320
+    fi
+}
+alias pi2vnc="ssh -p 57321 -L 15900:192.168.187.99:5900 pi@fife.entrydns.org"
+
+
 alias router="ssh root@192.168.187.1"
 alias theserve="theserve_connect "
 
