@@ -14,7 +14,8 @@ LOCAL_USER="$(logname)"
   # Always use spaces between brackets, ==
   # -ne -eq for numeric, == and != for string
 
-### UBUNTU SCREEN PREFERENCES
+## Install stuff
+bash ~/bashrc/Install_packages.sh
 
 ## Allow other for SSH drives
 echo user_allow_other | sudo tee -a /etc/fuse.conf
@@ -24,16 +25,6 @@ timedatectl set-local-rtc 1
 
 ### Config (misc config, e.g. spaces/tabs for nano)
 bash ~/bashrc/CONFIG.sh
-
-### Fix ALT+TAB ISSUES ###
-/usr/bin/gsettings set org.gnome.shell.app-switcher current-workspace-only true
-
-### NTFS Read/Write
-sudo apt-get remove ntfsprogs && sudo apt-get install ntfs-3g
-# sudo ntfsfix /dev/sdxX <- for Windows hibernation etc.
-
-# Route etc.
-sudo apt install net-tools
 
 #################
 ### SET PATHS ###
@@ -65,17 +56,6 @@ fi
 
 chmod 755 /home/$LOCAL_USER/bashrc/install_scripts/*
 chmod 755 "/home/$LOCAL_USER/bashrc/INSTALL.sh"
-
-##########################
-### INSTALL SMALL BINS ###
-##########################
-
-sudo apt update
-sudo apt install git
-sudo apt install openssh-server
-sudo apt install xsel
-sudo apt install xclip
-sudo apt install sox libsox-fmt-mp3 # for playing alarm
 
 
 ###########################

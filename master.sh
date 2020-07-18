@@ -216,7 +216,12 @@ pi2_connect()
     fi
 }
 alias pi2vnc="ssh -p 57321 -L 15900:192.168.187.99:5900 pi@fife.entrydns.org"
-
+alias pi2proxy="ssh -D 2000 pi@192.168.187.99"
+#alias mouse="ssh -p 22 -L 2222:myanonamouse.net:443 pi@pi2.lan" # && bash 'sleep 5 && chromium-browser localhost:2222'"
+#alias myip=" ssh -p 22 -L 2223:whatismyipaddress.com:80 pi@pi2.lan"
+#alias myip2=" ssh -p 22 -L 2224:myip.com:80 pi@pi2.lan"
+# Close all ports
+# sudo killall ssh
 
 alias router="ssh root@192.168.187.1"
 alias theserve="theserve_connect "
