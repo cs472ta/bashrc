@@ -434,12 +434,7 @@ countdown() {
 
 
 alias avatar_server='cd $GITHUB/personal_projects/avatarify && bash run.sh --is-worker'
-
-# Incoming socket
-alias avatar_socket='ssh -L 5557:galois:5557 tarch@schizo.cs.byu.edu'
-alias avatar_socket_on_server='ssh -L 5558:DalaiLama.lan:5558 pi@schizo.cs.byu.edu -p 57321'
-
-
+alias avatar_socket='ssh -L 5556:192.168.29.8:5556 tarch@schizo.cs.byu.edu'
 alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --worker-host localhost'
 
 alias dual="xrandr --output HDMI-0 --primary --output DP-1 --auto --right-of HDMI-0"
