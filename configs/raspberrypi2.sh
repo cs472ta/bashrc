@@ -7,3 +7,4 @@ alias ww="watch tail ~/lightshowpi/logs/microweb.log"
 
 alias torrents="cd /home/pi/Downloads/Torrents/Downloads/"
 alias mam="cd ~/Projects/stack_exchange/mam/ && python3 mam_login.py"
+alias qbit="cd ~/Projects/vpn"
