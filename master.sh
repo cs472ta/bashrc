@@ -82,6 +82,8 @@ alias websites='gedit ~/bashrc/ext/block_hosts/websites.txt'
 alias saveit='cd ~/bashrc && pushit && cd - '
 alias bashrc="nano ~/bashrc/master.sh && refresh"
 alias bashrc2='gedit ~/bashrc/master.sh && refresh'
+alias config='nano  ~/bashrc/configs/$HOSTNAME.sh'
+
 alias sleepy="osync && ~/bashrc/scripts/sleep.sh "
 alias shutty="osync && shutdown "
 #alias sleepy="~/bashrc/super/sleep.sh "
@@ -439,4 +441,7 @@ alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --worker-hos
 
 alias dual="xrandr --output HDMI-0 --primary --output DP-1 --auto --right-of HDMI-0"
 alias single="xrandr --output HDMI-0 --primary --output DP-1 --off"
+
+alias ls='ls -lsa'
+
 
