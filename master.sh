@@ -225,6 +225,10 @@ alias pi2proxy="ssh -D 2000 pi@192.168.187.99"
 # Close all ports
 # sudo killall ssh
 
+# Check if port is open
+check_port() { netstat -vanp --tcp | grep $1; }
+
+
 alias router="ssh root@192.168.187.1"
 alias theserve="theserve_connect "
 
@@ -433,6 +437,8 @@ countdown() {
     progress-bar $(($minutes*60))
     play -v .1 ~/bashrc/ext/alarm.mp3
 }
+
+killport() { sudo lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9; }
 
 
 alias avatar_server='cd $GITHUB/personal_projects/avatarify && bash run.sh --is-worker'
