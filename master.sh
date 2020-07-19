@@ -439,7 +439,7 @@ alias avatar_server='cd $GITHUB/personal_projects/avatarify && bash run.sh --is-
 
 # Incoming socket
 alias avatar_socket='ssh -L 5557:galois:5557 tarch@schizo.cs.byu.edu'
-alias avatar_socket_on_server='ssh -L 5558:DalaiLama.lan:5558 pi@schizo.cs.byu.edu -p 57321'
+alias avatar_socket_on_server='ssh -L 5558:DalaiLama.lan:5558 pi@fife.entrydns.org -p 57321'
 
 
 alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --worker-host localhost'
