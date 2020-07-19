@@ -208,15 +208,16 @@ pi2_connect()
       # localhost:18080 on client to connect
       # run this on client
       # 57321 => pi3:22
-      ssh -p 57321 -L 18080:192.168.187.99:8080 pi@fife.entrydns.org
+      #ssh -p 57321 -L 18080:192.168.187.99:8080 pi@fife.entrydns.org
+      ssh -t -p 57321 pi@fife.entrydns.org "ssh pi@pi2"
     else
-    echo "opening tunnel through pi3 ver2"
+    echo "connect to pi2 directly ver2"
         # 57320 => TheServe:22
-        ssh taylor@fife.entrydns.org -p 57320
+        ssh pi@fife.entrydns.org -p 57320
     fi
 }
-alias pi2vnc="ssh -p 57321 -L 15900:192.168.187.99:5900 pi@fife.entrydns.org"
-
+alias  pi2vnc="ssh -p 57321 -L 15900:192.168.187.99:5900 pi@fife.entrydns.org"
+alias pi28080="ssh -p 57321 -L 18080:192.168.187.99:8080 pi@fife.entrydns.org"
 
 alias router="ssh root@192.168.187.1"
 alias theserve="theserve_connect "

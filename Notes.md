@@ -20,3 +20,7 @@ TheServe (Linux): 545002835
 	eval $(ssh-agent -s)
 	# make ssh agent to actually use copied key
 	ssh-add ~/.ssh/id_rsa
+
+# Find files by date
+    find . -type f -newermt 2017-09-24 -ls -name *.py
+
