@@ -439,10 +439,34 @@ alias avatar_server='cd $GITHUB/personal_projects/avatarify && bash run.sh --is-
 
 # Incoming socket
 alias avatar_socket='ssh -L 5557:galois:5557 tarch@schizo.cs.byu.edu'
-alias avatar_socket_on_server='ssh -L 5558:DalaiLama.lan:5558 pi@fife.entrydns.org -p 57321'
+alias avatar_socket2='ssh -L 5558:galois:5558 tarch@schizo.cs.byu.edu'
+alias a1="ssh -f -N -T -R 5557:galois:5557  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
+alias a2="ssh -f -N -T -R 5558:galois:5558  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
+alias a3="ssh -f -N -T -R 5559:galois:22  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
 
 
-alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --worker-host localhost'
+## Run on home
+alias a1="ssh -f -N -T -R 5007:localhost:5557  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
+alias a2="ssh -f -N -T -R 5008:localhost:5558  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
+
+
+## Run on Schizo
+#alias as1="ssh -f -N -T -R 5557:localhost:5007  -o StrictHostKeyChecking=no taylor@galois"
+#alias as2="ssh -f -N -T -R 5558:localhost:5008  -o StrictHostKeyChecking=no taylor@galois"
+
+# Run on Galois
+alias as1="ssh -L 5557:localhost:5007  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
+alias as2="ssh -L 5558:localhost:5008  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
+
+
+
+
+#alias avatar_socket_on_server='ssh -L 5558:DalaiLama.lan:5558 pi@fife.entrydns.org -p 57321'
+
+
+alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --in-port  --out-port 5558 --is-client'
+alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --in-addr tcp://localhost:5557 --out-addr tcp://localhost:5558 --is-client'
+
 
 alias dual="xrandr --output HDMI-0 --primary --output DP-1 --auto --right-of HDMI-0"
 alias single="xrandr --output HDMI-0 --primary --output DP-1 --off"
