@@ -4,3 +4,6 @@ alias tst="on && sleep 4 && off"
 alias web="stop_microweb && sleep 2 && $SYNCHRONIZED_LIGHTS_HOME/bin/start_microweb >> $SYNCHRONIZED_LIGHTS_HOME/logs/microweb.log 2>&1 &"
 alias w="watch tail ~/lightshowpi/web/microweb/logs/relay_01-05-2020.log"
 alias ww="watch tail ~/lightshowpi/logs/microweb.log"
+
+alias torrents="cd /home/pi/Downloads/Torrents/Downloads/"
+alias mam="cd ~/Projects/stack_exchange/mam/ && python3 mam_login.py"
