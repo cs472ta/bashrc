@@ -227,6 +227,10 @@ alias pi2proxy="ssh -D 2000 pi@192.168.187.99"
 # Close all ports
 # sudo killall ssh
 
+# Check if port is open
+check_port() { netstat -vanp --tcp | grep $1; }
+
+
 alias router="ssh root@192.168.187.1"
 alias theserve="theserve_connect "
 
@@ -436,29 +440,30 @@ countdown() {
     play -v .1 ~/bashrc/ext/alarm.mp3
 }
 
+killport() { sudo lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9; }
+
 
 alias avatar_server='cd $GITHUB/personal_projects/avatarify && bash run.sh --is-worker'
 
 # Incoming socket
 alias avatar_socket='ssh -L 5557:galois:5557 tarch@schizo.cs.byu.edu'
 alias avatar_socket2='ssh -L 5558:galois:5558 tarch@schizo.cs.byu.edu'
-alias a1="ssh -f -N -T -R 5557:galois:5557  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
-alias a2="ssh -f -N -T -R 5558:galois:5558  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
-alias a3="ssh -f -N -T -R 5559:galois:22  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
+alias a1="ssh -f -N -T -R 5557:localhost:5557  -o StrictHostKeyChecking=no taylor@galois"
+alias a2="ssh -f -N -T -R 5558:localhost:5558  -o StrictHostKeyChecking=no taylor@galois"
 
 
 ## Run on home
-alias a1="ssh -f -N -T -R 5007:localhost:5557  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
-alias a2="ssh -f -N -T -R 5008:localhost:5558  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
+#alias a1="ssh -f -N -T -R 5007:localhost:5557  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
+#alias a2="ssh -f -N -T -R 5008:localhost:5558  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
 
 
 ## Run on Schizo
-#alias as1="ssh -f -N -T -R 5557:localhost:5007  -o StrictHostKeyChecking=no taylor@galois"
-#alias as2="ssh -f -N -T -R 5558:localhost:5008  -o StrictHostKeyChecking=no taylor@galois"
+alias as1="ssh -L 5007:localhost:5557  -o StrictHostKeyChecking=no taylor@galois"
+alias as2="ssh -L 5008:localhost:5558  -o StrictHostKeyChecking=no taylor@galois"
 
 # Run on Galois
-alias as1="ssh -L 5557:localhost:5007  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
-alias as2="ssh -L 5558:localhost:5008  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
+#alias as1="ssh -L 5557:localhost:5007  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
+#alias as2="ssh -L 5558:localhost:5008  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
 
 
 
@@ -466,8 +471,9 @@ alias as2="ssh -L 5558:localhost:5008  -o StrictHostKeyChecking=no tarch@schizo.
 #alias avatar_socket_on_server='ssh -L 5558:DalaiLama.lan:5558 pi@fife.entrydns.org -p 57321'
 
 
-alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --in-port  --out-port 5558 --is-client'
-alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --in-addr tcp://localhost:5557 --out-addr tcp://localhost:5558 --is-client'
+#alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --in-port  --out-port 5558 --is-client'
+#alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --in-addr tcp://localhost:5557 --out-addr tcp://localhost:5558 --is-client'
+alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --in-addr localhost:5557 --out-addr localhost:5558 --is-client'
 
 
 alias dual="xrandr --output HDMI-0 --primary --output DP-1 --auto --right-of HDMI-0"
