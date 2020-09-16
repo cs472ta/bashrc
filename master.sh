@@ -218,9 +218,14 @@ pi2_connect()
         ssh pi@fife.entrydns.org -p 57320
     fi
 }
+
+alias pi2="pi2_connect"
 alias pi28080="ssh -p 57321 -L 18080:192.168.187.99:8080 pi@fife.entrydns.org"
 alias pi2vnc="ssh -p 57321 -L 15900:192.168.187.99:5900 pi@fife.entrydns.org"
 alias pi2proxy="ssh -D 2000 pi@192.168.187.99"
+alias pi2proxy_remote="ssh -D 2000 pi@fife.entrydns.org -p 57321"
+
+
 #alias mouse="ssh -p 22 -L 2222:myanonamouse.net:443 pi@pi2.lan" # && bash 'sleep 5 && chromium-browser localhost:2222'"
 #alias myip=" ssh -p 22 -L 2223:whatismyipaddress.com:80 pi@pi2.lan"
 #alias myip2=" ssh -p 22 -L 2224:myip.com:80 pi@pi2.lan"
@@ -245,8 +250,7 @@ alias pi3=pi3_connect
 # ssh-copy-id tarch@ssh.fsl.byu.edu
 alias pi2_hard="ssh pi@192.168.187.99 || ssh pi@fife.entrydns.org -p 57322"
 alias pi2_wifi="ssh pi@192.168.187.98 || ssh pi@fife.entrydns.org -p 57323"
-alias pi2="pi2_hard"
-alias pi2="ssh_any pi2 taylor HOME"
+#alias pi2="ssh_any pi2 taylor HOME"
 alias pi3="ssh_any pi3 taylor HOME"
 
 alias pi3_unmount="sudo umount -f -l /home/${USER}/shares/pi3"
@@ -432,6 +436,7 @@ fi
 
 unalias countdown 2>/dev/null
 source ~/bashrc/ext/progress-bar.sh/progress-bar.sh
+# wait, timer
 countdown() {
     minutes=${1:-5}
     #printf 'Minutes : '
@@ -439,6 +444,7 @@ countdown() {
     progress-bar $(($minutes*60))
     play -v .1 ~/bashrc/ext/alarm.mp3
 }
+alias timer='countdown '
 
 killport() { sudo lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9; }
 
