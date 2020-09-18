@@ -35,7 +35,7 @@ if [ -f "$vpn_path" ]; then
 fi
 
 if test -f "cat ~/cronenv"; then
-  alias cron_env="env - `cat ~/cronenv` /bin/sh"
+  alias cron_env="env - `cat ~/cronenv` /bin/bash"
 fi
 
 secure_path="~/super/secure.sh"
