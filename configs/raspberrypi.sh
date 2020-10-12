@@ -1,3 +1,6 @@
+GITHUB="~/Projects"
+
+
 alias py37="source ~/Projects/py37/bin/activate"
 alias pip3='/usr/local/bin/pip'
 
