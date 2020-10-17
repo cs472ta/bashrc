@@ -1,4 +1,4 @@
-GITHUB="~/Projects"
+GITHUB="/home/pi/Projects"
 
 
 alias py37="source ~/Projects/py37/bin/activate"

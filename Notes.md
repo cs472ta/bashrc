@@ -4,6 +4,8 @@ DalaiLama: 158467604
 Mason:     783425554
 TheServe:  423536255
 TheServe (Linux): 545002835
+Halicarnassus: 884050063
+Pavilion23 (Hazard): 606055001
 
 
 ## Copy SSH keys over to new machine
