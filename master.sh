@@ -272,6 +272,7 @@ alias server="ping 192.168.187.100"
 ## SSH
 alias schizo="ssh tarch@schizo.cs.byu.edu"
 alias brodie='~/bashrc/scripts/ssh_any.sh 192.168.29.8 taylor SCHOOL' #  prestidigitonium.cs.byu.edu
+alias mike='~/bashrc/scripts/ssh_any.sh 192.168.29.51 taylor SCHOOL'
 alias galois='~/bashrc/scripts/ssh_any.sh galois taylor SCHOOL'
 alias galois_schizo='~/bashrc/scripts/ssh_any.sh galois taylor SCHOOL REMOTE'
 
@@ -486,5 +487,5 @@ alias dual="xrandr --output HDMI-0 --primary --output DP-1 --auto --right-of HDM
 alias single="xrandr --output HDMI-0 --primary --output DP-1 --off"
 
 alias ls='ls -lsa'
-
-
+alias latexpand="/home/${USER}/bashrc/scripts/latex/latexpand/latexpand "
+alias latexdiff="/home/${USER}/bashrc/scripts/latex/latexdiff/latexdiff "
