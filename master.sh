@@ -223,7 +223,14 @@ alias pi2="pi2_connect"
 alias pi28080="ssh -p 57321 -L 18080:192.168.187.99:8080 pi@fife.entrydns.org"
 alias pi2vnc="ssh -p 57321 -L 15900:192.168.187.99:5900 pi@fife.entrydns.org"
 alias pi2proxy="ssh -D 2000 pi@192.168.187.99"
-alias pi2proxy_remote="ssh -D 2000 pi@fife.entrydns.org -p 57321"
+alias pi2proxy_remote="ssh -D 2000 -J pi@fife.entrydns.org:57321,pi@192.168.187.99  pi@192.168.187.99"
+
+
+alias pi3proxy="ssh -D 2000 pi@fife.entrydns.org -p 57321"
+
+# Connect to Pi2 using the Jump Command
+alias pi2remote="ssh -J pi@fife.entrydns.org:57321,pi@192.168.187.99  pi@192.168.187.99"
+
 
 
 #alias mouse="ssh -p 22 -L 2222:myanonamouse.net:443 pi@pi2.lan" # && bash 'sleep 5 && chromium-browser localhost:2222'"
@@ -281,6 +288,7 @@ alias dalai='~/bashrc/scripts/ssh_any.sh 192.168.187.2 taylor HOME'
 alias super="~/bashrc/super/super.sh"
 alias super2='/home/$USER/bashrc/super/super2.sh'
 alias kant="ssh -t tarch@schizo.cs.byu.edu 'ssh taylor@192.168.29.56'"
+alias mason="ssh_any alexthelion-g10ac mason SCHOOL"
 alias kant_port="ssh -t -L 13389:localhost:3389 tarch@schizo.cs.byu.edu ssh -L 3389:localhost:3389 taylor@192.168.29.56 && sleep 4"
 alias galois_port3389="ssh -t -L 13389:localhost:3389 tarch@schizo.cs.byu.edu ssh -L 3389:localhost:3389 taylor@192.168.29.64 && sleep 4"
 alias super_mason='~/bashrc/super/super_mason.sh'
@@ -342,6 +350,10 @@ wol()
 #alias wol="wakeonlan 40:8D:5C:0C:3F:CA" # wake the server
 alias wol_galois="wakeonlan 70:85:c2:b9:14:6b"
 alias wol_kant="wakeonlan 78:24:af:83:2f:c9"
+alias wol_mason="wakeonlan 60:a4:4c:ea:35:ef"
+alias wol_mike="wakeonlan 60:a4:4c:ea:34:fc"
+alias wol_brodie="wakeonlan 70:85:c2:b9:19:73"
+
 
 alias byu_vpn="openvpn3 session-start --config /home/${USER}/taylors_scripts/openvpn/client.ovpn"
 alias byu_vpn="openvpn3 session-start --config client.ovpn"
