@@ -1,8 +1,9 @@
 #!/bin/bash
-message="${1:-'.sh'}"
+message="${1:-'pi@pi3.lan'}"
 
-if ssh pi@192.168.187.103 "mountpoint ~/Flash128" | grep "is a mountpoint"; then 
-
-
-
-fi
+out=$(ssh $1 <<'EOF'
+  while IFS= read -r line; do
+    printf 'Data : %s\n' "$line"
+  done < "data.txt"
+EOF
+)
