@@ -17,6 +17,9 @@ pushit () {
   git add . && git commit -m "$message" && git push
 }
 
+# SSH OPTION
+ssh_option="-o StrictHostKeyChecking=no,allow_other,reconnect,nonempty"
+export "ssh_option=$ssh_option"
 
 # Script to install bashrc to bashrc
 # Computer specific paths
@@ -220,7 +223,8 @@ pi2_connect()
 }
 
 alias pi2="pi2_connect"
-alias pi28080="ssh -p 57321 -L 18080:192.168.187.99:8080 pi@fife.entrydns.org"
+alias pi28080="ssh -p 57321 -L 18080:192.168.187.99:8080 pi@fife.entrydns.org" #get pi2:8080 on localhost:18080
+alias pi2_32768="ssh -p 57321 -L 32768:192.168.187.99:22 pi@fife.entrydns.org" #put SSHFS on localhost:32768
 alias pi2vnc="ssh -p 57321 -L 15900:192.168.187.99:5900 pi@fife.entrydns.org"
 alias pi2proxy="ssh -D 2000 pi@192.168.187.99"
 alias pi2proxy_remote="ssh -D 2000 -J pi@fife.entrydns.org:57321,pi@192.168.187.99  pi@192.168.187.99"
@@ -260,18 +264,19 @@ alias pi2_wifi="ssh pi@192.168.187.98 || ssh pi@fife.entrydns.org -p 57323"
 #alias pi2="ssh_any pi2 taylor HOME"
 alias pi3="ssh_any pi3 taylor HOME"
 
+alias pi2_unmount="sudo umount -f -l /home/${USER}/shares/pi2"
 alias pi3_unmount="sudo umount -f -l /home/${USER}/shares/pi3"
-alias map_pi3_local="pi3_unmount & sshfs -o StrictHostKeyChecking=no -o nonempty,allow_other,reconnect pi@192.168.187.103:/home/pi /home/${USER}/shares/pi3"
-#alias map_pi2="sudo umount -f /home/${USER}/shares/pi2 || sleep 1 || sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/home/pi /home/${USER}/shares/pi2"
+alias map_pi3_local="pi2_unmount & sshfs -o $ssh_option pi@192.168.187.99:/home/pi /home/${USER}/shares/pi2"
 alias map_pi3_remote="pi3_unmount & /usr/bin/sshfs -p 57321 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa  pi@fife.entrydns.org:/home/pi /home/${USER}/shares/pi3"
 alias pi3_port22="ssh -L 3000:pi@fife.entrydns.org:22 localhost"
 
 
-
 #ssh pi@fife.entrydns.org -p 57321
 
-alias map_pi2="sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.99:/home/pi /home/${USER}/shares/pi2"
-alias map_pi2_root="sudo umount -f /home/${USER}/shares/pi2_root || sleep 1 || sshfs -o StrictHostKeyChecking=no,allow_other,reconnect,nonempty pi@192.168.187.98:/ /home/${USER}/shares/pi2_root"
+alias map_pi2="sshfs $ssh_option pi@192.168.187.99:/home/pi /home/${USER}/shares/pi2"
+alias map_pi2_root="sudo umount -f /home/${USER}/shares/pi2_root || sleep 1 || sshfs $ssh_option pi@192.168.187.98:/ /home/${USER}/shares/pi2_root"
+alias map_pi2_remote="pi2_unmount & pi2_32768 && sleep 2 && sshfs $ssh_option pi@localhost:/home/pi /home/${USER}/shares/pi2 -p 32768"
+
 alias map_schizo="sshfs tarch@schizo.cs.byu.edu:/users/grads/tarch /media/BYUCS/"
 alias plex="sudo systemctl start plexmediaserver"
 alias server="ping 192.168.187.100"
@@ -408,6 +413,7 @@ sbatcher() {
 
 # Projects
 alias ss="conda activate $HWR_ENV && github && cd simple_hwr"
+alias qr="conda activate qr && github && cd QR"
 alias synth="github && cd handwriting-synthesis && conda activate tf16"
 alias revisdom="pkill -f visdom && ss && visdom && sleep 5 && python hwr_utils/visualize.py"
 
