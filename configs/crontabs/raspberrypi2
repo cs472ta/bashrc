@@ -1,0 +1,114 @@
+# Edit this file to introduce tasks to be run by cron.
+# 
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+# 
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').# 
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+# 
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+# 
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+# 
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+
+# Set ENV Variables here, or with the command! The normal env WILL NOT LOAD!
+# * * * * *  command to execute
+# ┬ ┬ ┬ ┬ ┬
+# │ │ │ │ │
+# │ │ │ │ │
+# │ │ │ │ └───── day of week (0 - 7) (0 to 6 are Sunday to Saturday, or use names; 7 is Sunday, the same as 0)
+# │ │ │ └────────── month (1 - 12)
+# │ │ └─────────────── day of month (1 - 31)
+# │ └──────────────────── hour (0 - 23)
+# └───────────────────────── min (0 - 59)
+
+MAILTO=""
+SHELL=/bin/bash
+SYNCHRONIZED_LIGHTS_HOME=/home/pi/lightshowpi
+BROADLINK=/home/pi/broadlink
+QBITTORRENT=/home/pi/Projects/vpn/qbittorrent/
+@reboot $SYNCHRONIZED_LIGHTS_HOME/bin/start_microweb >> $SYNCHRONIZED_LIGHTS_HOME/logs/microweb.log 2>&1 &
+PATH=/home/pi/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games:/home/pi/lightshowpi/bin:~/bashrc/bin
+
+#* * * * * source /home/pi/.bashrc && update_vpn_ip > ./cron_vpn.log 2>&1
+#* * * * * source /home/pi/.bashrc > ./cron_bash.log 2>&1
+#* * * * * bash -c "source /home/pi/.bashrc ; update_vpn_ip > ./FUCKTHIS.log 2>&1"
+
+
+
+### QBITTORRENT
+    # Start VPN & QBIT on Boot
+        @reboot sleep 120 && cd $QBITTORRENT && ./QBIT.sh >> ./cron.log 2>&1
+        @reboot sleep 45 && pgrep windscribe; [ $? -ne 0 ] && /usr/bin/windscribe connect PL # Start windscribe if not started
+
+        # Restore the fast resumes
+        #@reboot sleep 20 && cd /home/pi/Projects/vpn && python3 controller.py --restore
+
+    # BACK UP EVERYTHING
+        30 11 1,7,21,28 * *  cd "/home/pi/Projects/vpn/qbittorrent/backup" && ./backup.sh > daily_backup.log 2>&1 # This closes and restart qbittorrent
+
+    # Back up TORRENTS at night
+        #30 23 * * *      cd $QBITTORRENT && python3 controller.py --backup >> ./cron.log 2>&1
+        #* * * * *        /bin/bash -l -c cd $QBITTORRENT ; python3 controller.py --log  >> ./cron.log 2>&1  
+
+    # Resume torrents periodically
+        #30 6,12,18 * * * cd $QBITTORRENT && python3 controller.py --resume >> ./cron.log 2>&1
+
+    ## CAN'T LOG
+        #* * * * *    . $HOME/normal_env; cd $QBITTORRENT && ./LOG_QBT.sh
+        #* * * * *    env - `cat /home/pi/normal_env` /bin/bash; /usr/bin/qbt torrent list > /home/pi/Projects/vpn/logs/`/bin/date +'\%Y.\%m.\%d'`.log 2>&1
+        #* * * * *    bash -l -c -x 'cd $QBITTORRENT && ./LOG_QBT.sh'
+        #* * * * *    bash -l -c -x 'cd $QBITTORRENT && ./LOG_QBT2.sh'
+        #* * * * *    bash -l -c -x 'cd $QBITTORRENT && ./LOG_QBT3.sh'
+        #* * * * *    bash -l -c -x '/usr/bin/unbuffer /usr/bin/qbt torrent list > LOG2.log 2>&1'
+        #* * * * *    cd $QBITTORRENT && unbuffer qbt torrent list > ./LOG.log 2>&1
+        #* * * * *     unbuffer echo "THIS" > LOG.log 2>&1
+        #* * * * *   /usr/bin/unbuffer /usr/bin/qbt torrent list | tee /home/pi/Projects/vpn/logs/TEST.log 2>&1
+        #* * * * *    /home/pi/Projects/vpn/logs/check_status.sh
+        #* * * * * env > ~/cronenv
+
+# CREATE CRON BASH ENVIRN
+#env - `cat ~/cronenv` /bin/sh
+#ENTER COMMAND
+
+
+# Update Windscribe port
+57 23 * * 1,3,5 cd /home/pi/Projects/stack_exchange/windscribe && python3 update_port.py > ./cron.log 2>&1
+
+# Update DNS
+30  * * * * curl -k -X PUT -d "" https://entrydns.net/records/modify/WuKLPfC2qUVPYGfjOV8E
+
+# Turn on lights at 436 PM
+36 16 * * * sudo python $SYNCHRONIZED_LIGHTS_HOME/py/hardware_controller.py --state=on
+
+# Turn off lights at 11 PM
+0 23 * * * sudo python $SYNCHRONIZED_LIGHTS_HOME/py/hardware_controller.py --state=off
+
+# Turn on lights at 6 am
+0 6 * * * sudo python $SYNCHRONIZED_LIGHTS_HOME/py/hardware_controller.py --state=on
+
+# Turn off lights at 9 am
+0 9 * * * sudo python $SYNCHRONIZED_LIGHTS_HOME/py/hardware_controller.py --state=off
+
+## DISABLE WIFI FOR NOW
+0 10 * * *  sudo ifdown wlan0 # disable WiFi shortly after reboot; this way WiFi can still be used if restarted at weird time
+
+## MAM
+04 00  * * 0,2,5  cd /home/pi/Projects/stack_exchange/mam && python3 /home/pi/Projects/stack_exchange/mam/millionaire.py 
+
+#* * * * * /home/pi/lstest.txt
+
+## SYNC with pi3 server
+#04 35 * * * rsync -r --update /home/pi/Downloads/external/Downloads/ /home/pi/pi3/Flash128/Downloads/ > /home/pi/Downloads/external/Downloads/cron.log 2>&1 &
+
+

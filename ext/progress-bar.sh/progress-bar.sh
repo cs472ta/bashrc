@@ -15,7 +15,7 @@ progress-bar() {
   space_available=$(( columns-space_reserved ))
 
   if (( duration < space_available )); then 
-    fit_to_screen=1; 
+  	fit_to_screen=1; 
   else 
     fit_to_screen=$(( duration / space_available )); 
     fit_to_screen=$((fit_to_screen+1)); 
