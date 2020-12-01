@@ -510,3 +510,7 @@ alias single="xrandr --output HDMI-0 --primary --output DP-1 --off"
 alias ls='ls -lsa'
 alias latexpand="/home/${USER}/bashrc/scripts/latex/latexpand/latexpand "
 alias latexdiff="/home/${USER}/bashrc/scripts/latex/latexdiff/latexdiff "
+
+# Website
+alias taylor_ssh="ssh taylorar@taylorarchibald.com " # add ssh keys here https://domains.byu.edu/dashboard/
+alias taylor_sftp="sftp -P 22 taylorar@taylorarchibald.com "
