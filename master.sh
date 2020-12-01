@@ -107,7 +107,9 @@ alias count="ls -1 | wc -l"
 alias cps="xsel -b < " # copy to text
 alias onedrivef="onedrive --syncdir $ONEDRIVE --monitor > /home/$USER/bashrc/onedrive/onedrive_manual.log --check-for-nosync"
 #find . -type f -name '*.sh' -print0 | xargs -0 sed -i 's|--ntasks=28|--ntasks=8|g'
-alias search="find . -type 'f' -name " # Find a file
+alias searchf="find . -type 'f' -name " # Find a file
+alias search="find . -type d,f -name " # Find a file or directory
+
 
 alias docker="sudo docker "
 alias np="notepadqq "
