@@ -14,7 +14,11 @@ LOCAL_USER="$(logname)"
   # Always use spaces between brackets, ==
   # -ne -eq for numeric, == and != for string
 
-### UBUNTU SCREEN PREFERENCES
+## Install stuff
+bash ~/bashrc/Install_packages.sh
+
+## Allow other for SSH drives
+echo user_allow_other | sudo tee -a /etc/fuse.conf
 
 ### SET UBUNTU TO LOCAL TIME (For DUAL BOOTING WITH WINDOWS)
 timedatectl set-local-rtc 1
@@ -22,12 +26,14 @@ timedatectl set-local-rtc 1
 ### Config (misc config, e.g. spaces/tabs for nano)
 bash ~/bashrc/CONFIG.sh
 
-### Fix ALT+TAB ISSUES ###
-/usr/bin/gsettings set org.gnome.shell.app-switcher current-workspace-only true
-
 #################
 ### SET PATHS ###
 #################
+
+## Make sharing paths
+mkdir /home/$LOCAL_USER/shares/pi2
+mkdir /home/$LOCAL_USER/shares/pi3
+
 
 # If it doesn't exist, create it, ask for paths
 hostname_rc="/home/$LOCAL_USER/bashrc/configs/${HOSTNAME}.sh"
@@ -50,17 +56,6 @@ fi
 
 chmod 755 /home/$LOCAL_USER/bashrc/install_scripts/*
 chmod 755 "/home/$LOCAL_USER/bashrc/INSTALL.sh"
-
-##########################
-### INSTALL SMALL BINS ###
-##########################
-
-sudo apt update
-sudo apt install git
-sudo apt install openssh-server
-sudo apt install xsel
-sudo apt install xclip
-sudo apt install sox libsox-fmt-mp3 # for playing alarm
 
 
 ###########################
@@ -167,6 +162,29 @@ done
 # Install NVIDIA Driver
 
 # Test pytorch
+while true; do
+    read -p "Do you want to test torch / cuda? (must have already activated your environment" yn
+    case $yn in
+        [Yy]* ) 
+
+
+python
+import torch
+torch.cuda.current_device()
+torch.cuda.device(0)
+torch.cuda.device_count()
+torch.cuda.get_device_name(0)
+torch.cuda.is_available()
+
+                break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+
+
+
 python
 import torch
 torch.cuda.current_device()
