@@ -10,11 +10,14 @@ echo "command: $0"
 echo "host: $hostname"
 echo "user: $USER"
 echo "dest network: $DEST_NETWORK" 
-echo "current network: $CURRENT_NETWORK" 
+echo "current network if specified: $CURRENT_NETWORK" 
 
 #on_home() { if [ ipconfig | grep 192.168.187 ]; then return 1;  else return 0;  fi } 
 
-alias ipconfig=ifconfig
+if ! command -v ifconfig &> /dev/null
+then
+    alias ifconfig=ipconfig
+fi
 
 on_home() { 
 ip=${1-192.168.187}
