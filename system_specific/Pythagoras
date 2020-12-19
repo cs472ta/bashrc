@@ -34,4 +34,31 @@ menuentry 'Ubuntu' --class ubuntu --class gnu-linux --class gnu --class os $menu
 menuentry 'Windows Boot Manager (on /dev/sda2)' --class windows --class os $menuentry_id_option 'osprober-efi-D630-381F' {
 menuentry 'UEFI Firmware Settings' $menuentry_id_option 'uefi-firmware' {
 
+taylor@pythagoras:~/bashrc$ efibootmgr
+BootCurrent: 0000
+Timeout: 0 seconds
+BootOrder: 0000,0002,0001,2001,2002,2003
+Boot0000* ubuntu
+Boot0001* Linpus lite
+Boot0002* Windows Boot Manager
+Boot2001* EFI USB Device
+Boot2002* EFI DVD/CDROM
+Boot2003* EFI Network
+
+
 # 20 second timeout
+
+## Prevent Windows from overwriting boot loader
+    # efibootmgr
+        efibootmgr
+            There are also stars* beside some, if not all, of the entries, marking them active.
+            Look at the 4 digit boot number next to Windows entry and run
+
+        sudo efibootmgr --bootnum #### --inactive
+            This will deactivate Windows entry. Also, make sure that now deactivated Windows has higher priority if it doesn't already:
+
+        sudo efibootmgr --bootorder ####,$$$$,&&&&,%%%%
+
+    # disable system restore
+    # disable updates
+
