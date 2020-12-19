@@ -1,3 +1,17 @@
+# Power Management
+    # Observe power usage
+    sudo apt install powertop
+    sudo powertop
+
+    # Low power
+    sudo apt install pm-utils
+    
+    #In order to enter low power mode, run this:
+    sudo pm-powersave true
+    #In order to leave low power mode, run this:
+    sudo pm-powersave false
+
+
 # Procedure with no screen:
     Reboot with little button
     Down x2, enter (choose boot device)
