@@ -275,8 +275,8 @@ alias pi3_port22="ssh -L 3000:pi@fife.entrydns.org:22 localhost"
 #ssh pi@fife.entrydns.org -p 57321
 
 alias map_pi2="sshfs $ssh_option pi@192.168.187.99:/home/pi /home/${USER}/shares/pi2"
-alias map_pi2_root="sudo umount -f /home/${USER}/shares/pi2_root || sleep 1 || sshfs $ssh_option pi@192.168.187.98:/ /home/${USER}/shares/pi2_root"
-alias map_pi2_remote="pi2_unmount & pi2_32768 && sleep 2 && sshfs $ssh_option pi@localhost:/home/pi /home/${USER}/shares/pi2 -p 32768"
+alias map_pi2_root="sudo umount -f /home/${USER}/shares/pi2_root || sleep 1 || sshfs $ssh_option pi@192.168.187.99:/ /home/${USER}/shares/pi2_root"
+alias map_pi2_remote="pi2_unmount & pi2_32768 & sleep 5 && sshfs $ssh_option pi@localhost:/home/pi /home/${USER}/shares/pi2 -p 32768"
 
 alias map_schizo="sshfs tarch@schizo.cs.byu.edu:/users/grads/tarch /media/BYUCS/"
 alias plex="sudo systemctl start plexmediaserver"
@@ -415,6 +415,7 @@ sbatcher() {
 # Projects
 alias ss="conda activate $HWR_ENV && github && cd simple_hwr"
 alias qr="conda activate qr && github && cd QR"
+alias qr2="conda activate qr && github && cd qr2"
 alias synth="github && cd handwriting-synthesis && conda activate tf16"
 alias revisdom="pkill -f visdom && ss && visdom && sleep 5 && python hwr_utils/visualize.py"
 
@@ -512,3 +513,12 @@ alias latexdiff="/home/${USER}/bashrc/scripts/latex/latexdiff/latexdiff "
 # Website
 alias taylor_ssh="ssh taylorar@taylorarchibald.com " # add ssh keys here https://domains.byu.edu/dashboard/
 alias taylor_sftp="sftp -P 22 taylorar@taylorarchibald.com "
+
+
+# 
+alias git_files="git rev-list --objects --all \
+| git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' \
+| sed -n 's/^blob //p' \
+| sort --numeric-sort --key=2 \
+| cut -c 1-12,41- \
+| $(command -v gnumfmt || echo numfmt) --field=2 --to=iec-i --suffix=B --padding=7 --round=nearest"
