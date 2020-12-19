@@ -48,7 +48,7 @@ elif [ "$hostname" = 'pi3' ]; then
 elif [ "$hostname" = 'pi2' ]; then
 	if $ON_HOME; then ssh pi@192.168.187.99; else ssh pi@fife.entrydns.org -p 57322; fi # 57323 for WiFi; 57322 for Eth 
 elif [ $hostname = 'pythagoras' ]; then
-    if $ON_HOME; then ssh taylor@192.168.187.2; else ssh pi@fife.entrydns.org -p 57324; fi
+    if $ON_HOME; then ssh taylor@192.168.187.2; else ssh taylor@fife.entrydns.org -p 57329; fi
 elif [ "$CURRENT_NETWORK" = 'LOCAL' ] ; then
 	echo "on local network"
 	ssh $USER@$hostname
