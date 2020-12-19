@@ -8,23 +8,17 @@ ON_SCHOOL=false;
 
 echo "command: $0"
 echo "host: $hostname"
-echo "user: $USER"
+echo "user network: $USER"
 echo "dest network: $DEST_NETWORK" 
-echo "current network if specified: $CURRENT_NETWORK" 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" # folder of this script
-
-#on_home() { if [ ipconfig | grep 192.168.187 ]; then return 1;  else return 0;  fi } 
-#on_home() { ip=${1-168.187}; if [[ $(ipconfig | grep $ip) ]]; then     return 0; else     return 1; fi; }   
-source $DIR/on_home.sh
+echo "current network: $CURRENT_NETWORK" 
 
 if [ $CURRENT_NETWORK = "UNSPECIFIED" ]; then
-	if (on_home 192.168.187); then # on home network
-    		ON_HOME=true;
-	elif (on_home 192.168.29); then
+	if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') =~ 192.168.18[78].1 ]]; then # on home network
+		ON_HOME=true;
+	elif [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') =~ 192.168.29.1 ]]; then
 		ON_SCHOOL=true;
 	fi;
-	#echo HOME $ON_HOME
-    #echo SCHOOL $ON_SCHOOL
+	
 	if $ON_HOME && [ $DEST_NETWORK = 'HOME' ]; then
 		CURRENT_NETWORK="LOCAL"
 	elif $ON_SCHOOL && [ $DEST_NETWORK = 'SCHOOL' ]; then
@@ -41,14 +35,12 @@ echo "on_home: $ON_HOME, on_school: $ON_SCHOOL"
 # ONLY WORKS FOR WIFI
 
 # If at home, connect through schizo
-if [ "$hostname" = "schizo.cs.byu.edu" ]; then
+if [ $hostname = 'schizo.cs.byu.edu' ]; then
 	ssh tarch@$hostname
-elif [ "$hostname" = 'pi3' ]; then
+elif [ $hostname = 'pi3' ]; then
 	if $ON_HOME; then ssh pi@192.168.187.103; else ssh pi@fife.entrydns.org -p 57321; fi
-elif [ "$hostname" = 'pi2' ]; then
+elif [ $hostname = 'pi2' ]; then
 	if $ON_HOME; then ssh pi@192.168.187.99; else ssh pi@fife.entrydns.org -p 57322; fi # 57323 for WiFi; 57322 for Eth 
-elif [ $hostname = 'pythagoras' ]; then
-    if $ON_HOME; then ssh taylor@192.168.187.2; else ssh pi@fife.entrydns.org -p 57324; fi
 elif [ "$CURRENT_NETWORK" = 'LOCAL' ] ; then
 	echo "on local network"
 	ssh $USER@$hostname
