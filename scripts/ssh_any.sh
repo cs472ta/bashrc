@@ -11,10 +11,11 @@ echo "host: $hostname"
 echo "user: $USER"
 echo "dest network: $DEST_NETWORK" 
 echo "current network if specified: $CURRENT_NETWORK" 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" # folder of this script
 
 #on_home() { if [ ipconfig | grep 192.168.187 ]; then return 1;  else return 0;  fi } 
 #on_home() { ip=${1-168.187}; if [[ $(ipconfig | grep $ip) ]]; then     return 0; else     return 1; fi; }   
-on_home() { ./on_home.sh $1; }
+source $DIR/on_home.sh
 
 if [ $CURRENT_NETWORK = "UNSPECIFIED" ]; then
 	if (on_home 192.168.187); then # on home network
