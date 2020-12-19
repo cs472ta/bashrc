@@ -510,8 +510,11 @@ alias as2="ssh -L 5008:localhost:5558  -o StrictHostKeyChecking=no taylor@galois
 alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --in-addr localhost:5557 --out-addr localhost:5558 --is-client'
 alias wachete='cd $GITHUB/AmazonPriceCheck/wachete'
 
+
+## DISPLAY
 alias dual="xrandr --output HDMI-0 --primary --output DP-1 --auto --right-of HDMI-0"
 alias single="xrandr --output HDMI-0 --primary --output DP-1 --off"
+alias fix="shopt -s checkwinsize && resize"
 
 alias ls='ls -lsa'
 alias latexpand="/home/${USER}/bashrc/scripts/latex/latexpand/latexpand "
@@ -529,3 +532,5 @@ alias git_files="git rev-list --objects --all \
 | sort --numeric-sort --key=2 \
 | cut -c 1-12,41- \
 | $(command -v gnumfmt || echo numfmt) --field=2 --to=iec-i --suffix=B --padding=7 --round=nearest"
+
+

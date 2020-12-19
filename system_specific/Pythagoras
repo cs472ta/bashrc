@@ -1,0 +1,8 @@
+# Procedure with no screen:
+    Reboot with little button
+    Down x2, enter (choose boot device)
+    Down x2, enter (SanDisk, when plugged into right side)
+    Enter ("Try Ubuntu")
+
+Should be able to plug in if it boots
+May not be down x2
