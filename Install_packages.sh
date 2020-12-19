@@ -9,6 +9,7 @@ sudo apt install xsel
 sudo apt install xclip
 sudo apt install sox libsox-fmt-mp3 # for playing alarm
 sudo apt install curl
+sudo apt install clipit # clipboard manager
 
 sudo apt install -y dnsutils
 sudo apt-get install exfat-fuse exfat-utils
