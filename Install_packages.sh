@@ -23,3 +23,6 @@ sudo apt-get remove ntfsprogs && sudo apt-get install ntfs-3g
 # Route etc.
 sudo apt install net-tools
 
+# Log boots in  /var/log/
+sudo apt-get install bootlogd
+

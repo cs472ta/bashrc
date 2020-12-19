@@ -91,7 +91,7 @@ alias bashrc="nano ~/bashrc/master.sh && refresh"
 alias bashrc2='gedit ~/bashrc/master.sh && refresh'
 alias config='nano  ~/bashrc/configs/$HOSTNAME.sh'
 
-alias sleepy="osync && ~/bashrc/scripts/sleep.sh "
+alias sleepy="sudo osync && ~/bashrc/scripts/sleep.sh "
 alias shutty="osync && shutdown "
 #alias sleepy="~/bashrc/super/sleep.sh "
 alias hibernate="systemctl hibernate -i"
@@ -230,6 +230,15 @@ pi2_connect()
     fi
 }
 
+## DELETE PROBABLY
+#alias pi28080="ssh -p 57321 -L 18080:192.168.187.99:8080 pi@fife.entrydns.org"
+#alias pi2vnc="ssh -p 57321 -L 15900:192.168.187.99:5900 pi@fife.entrydns.org"
+#alias pi2proxy="ssh -D 2000 pi@192.168.187.99"
+#alias pi3proxy_remote="ssh -D 2000 pi@fife.entrydns.org -p 57321"
+#alias pi2proxy_remote="ssh -D 2000 -p 57321 -L 2000:192.168.187.99:2000 pi@fife.entrydns.org"
+#alias pi2proxy_remote="ssh -p 57321 -L 2000:192.168.187.99:2002 pi@fife.entrydns.org && ssh -D 2000 pi@fife.entrydns.org -p 57321"
+
+
 alias pi2="pi2_connect"
 alias pi28080="ssh -p 57321 -L 18080:192.168.187.99:8080 pi@fife.entrydns.org" #get pi2:8080 on localhost:18080
 alias pi2_32768="ssh -p 57321 -L 32768:192.168.187.99:22 pi@fife.entrydns.org" #put SSHFS on localhost:32768
@@ -263,6 +272,8 @@ alias theserve="theserve_connect "
 #unalias ssh_any
 ssh_any() { ~/bashrc/scripts/ssh_any.sh $1 $2 $3 $4; }
 
+
+alias pythagoras="ssh_any pythagoras taylor HOME"
 alias pi3="if (iwgetid -r)==(FifeNet) ssh pi@192.168.187.103 || ssh pi@136.36.13.188 -p 57321"
 alias pi3="ssh pi@192.168.187.103 || ssh pi@fife.entrydns.org -p 57321"
 alias pi3=pi3_connect
@@ -277,7 +288,6 @@ alias pi3_unmount="sudo umount -f -l /home/${USER}/shares/pi3"
 alias map_pi3_local="pi2_unmount & sshfs -o $ssh_option pi@192.168.187.99:/home/pi /home/${USER}/shares/pi2"
 alias map_pi3_remote="pi3_unmount & /usr/bin/sshfs -p 57321 -o reconnect,umask=0000,allow_other,nonempty,IdentityFile=~/.ssh/id_rsa  pi@fife.entrydns.org:/home/pi /home/${USER}/shares/pi3"
 alias pi3_port22="ssh -L 3000:pi@fife.entrydns.org:22 localhost"
-
 
 #ssh pi@fife.entrydns.org -p 57321
 
@@ -343,8 +353,6 @@ alias shares='map_lab && map_super'
 ## 
 alias visdom="eval 'conda activate hwr5 && nohup python -m visdom.server -p 9001 &>/dev/null &'"
 alias connectit="galois_port22 && brodie_port22 && galois_vis && super"
-
-
 
 ## WOL
 unalias wol 2>/dev/null
@@ -461,7 +469,6 @@ if on_home 192.168.188.1; then
 	echo "WARNING: Connected to ARCHINET"
 fi
 
-
 unalias countdown 2>/dev/null
 source ~/bashrc/ext/progress-bar.sh/progress-bar.sh
 # wait, timer
@@ -480,10 +487,10 @@ killport() { sudo lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -
 alias avatar_server='cd $GITHUB/personal_projects/avatarify && bash run.sh --is-worker'
 
 # Incoming socket
-alias avatar_socket='ssh -L 5557:galois:5557 tarch@schizo.cs.byu.edu'
-alias avatar_socket2='ssh -L 5558:galois:5558 tarch@schizo.cs.byu.edu'
-alias a1="ssh -f -N -T -R 5557:localhost:5557  -o StrictHostKeyChecking=no taylor@galois"
-alias a2="ssh -f -N -T -R 5558:localhost:5558  -o StrictHostKeyChecking=no taylor@galois"
+alias as1='ssh -L 5557:galois:5557 tarch@schizo.cs.byu.edu'
+alias as2='ssh -L 5558:galois:5558 tarch@schizo.cs.byu.edu'
+#alias a1="ssh -f -N -T -R 5557:localhost:5557  -o StrictHostKeyChecking=no taylor@galois"
+#alias a2="ssh -f -N -T -R 5558:localhost:5558  -o StrictHostKeyChecking=no taylor@galois"
 
 
 ## Run on home
@@ -492,14 +499,12 @@ alias a2="ssh -f -N -T -R 5558:localhost:5558  -o StrictHostKeyChecking=no taylo
 
 
 ## Run on Schizo
-alias as1="ssh -L 5007:localhost:5557  -o StrictHostKeyChecking=no taylor@galois"
-alias as2="ssh -L 5008:localhost:5558  -o StrictHostKeyChecking=no taylor@galois"
+#alias as1="ssh -L 5007:localhost:5557  -o StrictHostKeyChecking=no taylor@galois"
+#alias as2="ssh -L 5008:localhost:5558  -o StrictHostKeyChecking=no taylor@galois"
 
 # Run on Galois
 #alias as1="ssh -L 5557:localhost:5007  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
 #alias as2="ssh -L 5558:localhost:5008  -o StrictHostKeyChecking=no tarch@schizo.cs.byu.edu"
-
-
 
 
 #alias avatar_socket_on_server='ssh -L 5558:DalaiLama.lan:5558 pi@fife.entrydns.org -p 57321'
@@ -507,7 +512,8 @@ alias as2="ssh -L 5008:localhost:5558  -o StrictHostKeyChecking=no taylor@galois
 
 #alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --in-port  --out-port 5558 --is-client'
 #alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --in-addr tcp://localhost:5557 --out-addr tcp://localhost:5558 --is-client'
-alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --in-addr localhost:5557 --out-addr localhost:5558 --is-client'
+#alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --in-addr tcp://localhost:5557 --out-addr tcp://localhost:5558 --is-client'
+#alias avatar='cd $GITHUB/personal_projects/avatarify && bash run.sh --in-addr localhost:5557 --out-addr localhost:5558 --is-client'
 alias wachete='cd $GITHUB/AmazonPriceCheck/wachete'
 
 
@@ -524,6 +530,16 @@ alias latexdiff="/home/${USER}/bashrc/scripts/latex/latexdiff/latexdiff "
 alias taylor_ssh="ssh taylorar@taylorarchibald.com " # add ssh keys here https://domains.byu.edu/dashboard/
 alias taylor_sftp="sftp -P 22 taylorar@taylorarchibald.com "
 
+# Latex
+alias latexdiff='~/bashrc/ext/latex/compare_files.sh '
+
+# sort photos
+alias sort_photos='~/bashrc/scripts/sort_photos.sh '
+
+# List of grub start options
+# Tab is a subindex of an unlisted item
+# grub-reboot [0-INDEX index]
+alias grub_menu="cat /boot/grub/grub.cfg | grep 'menuentry '"
 
 # 
 alias git_files="git rev-list --objects --all \
