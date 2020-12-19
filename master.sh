@@ -10,6 +10,10 @@ PROMPT_COMMAND='history -a'
 export "PATH=$PATH:~/bashrc/bin" # add standard command binaries
 
 
+## Get netowrk
+#on_home() { ~/bashrc/scripts/on_home.sh $1; }
+source ~/bashrc/scripts/on_home.sh
+
 ## Github
 unalias pushit 2>/dev/null
 pushit () {
@@ -179,7 +183,8 @@ pi3_connect()
 {
     # If in a git repo - call git mv. otherwise- call mv
     #if [ $(iwgetid -r) == "FifeNet" ];
-    if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') =~ 192.168.18[78].1 ]];
+    #if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') =~ 192.168.18[78].1 ]];
+    if on_home;
     then
         ssh pi@192.168.187.103 
     else 
@@ -231,7 +236,7 @@ alias pi2_32768="ssh -p 57321 -L 32768:192.168.187.99:22 pi@fife.entrydns.org" #
 alias pi2vnc="ssh -p 57321 -L 15900:192.168.187.99:5900 pi@fife.entrydns.org"
 alias pi2proxy="ssh -D 2000 pi@192.168.187.99"
 alias pi2proxy_remote="ssh -D 2000 -J pi@fife.entrydns.org:57321,pi@192.168.187.99  pi@192.168.187.99"
-
+alias pythagoras="ssh taylor@pythagoras.lan"
 
 alias pi3proxy="ssh -D 2000 pi@fife.entrydns.org -p 57321"
 
@@ -347,7 +352,7 @@ wol()
 {
     # If in a git repo - call git mv. otherwise- call mv
     #if [ $(iwgetid -r) == "FifeNet" ];
-    if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') =~ 192.168.18[7].1 ]];
+    if on_home;
     then
 	wakeonlan 40:8D:5C:0C:3F:CA
     else 
@@ -451,7 +456,7 @@ replace() { # don't use * in specifying extension because it expands too soon
 # Rename files (find/replace)
 # rename 's/find/replace/' *
 
-if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == *192.168.188.1* ]]; then
+if on_home 192.168.188.1; then
 	echo "WARNING: Connected to ARCHINET"
 fi
 

@@ -13,25 +13,10 @@ echo "dest network: $DEST_NETWORK"
 echo "current network if specified: $CURRENT_NETWORK" 
 
 #on_home() { if [ ipconfig | grep 192.168.187 ]; then return 1;  else return 0;  fi } 
-
-if ! command -v ifconfig &> /dev/null
-then
-    alias ifconfig=ipconfig
-fi
-
-on_home() { 
-ip=${1-192.168.187}
-if [[ $(ipconfig | grep $1) ]]; then 
-    return 0;  
-else 
-    return 1;  
-fi;
-}
-
 #on_home() { ip=${1-168.187}; if [[ $(ipconfig | grep $ip) ]]; then     return 0; else     return 1; fi; }   
+on_home() { ./on_home.sh $1; }
 
 if [ $CURRENT_NETWORK = "UNSPECIFIED" ]; then
-    echo "HERE"
 	if (on_home 192.168.187); then # on home network
     		ON_HOME=true;
 	elif (on_home 192.168.29); then
