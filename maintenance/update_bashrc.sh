@@ -13,7 +13,7 @@ if [ -f ~/.bashrc ]; then
     fi
 fi
 
-
+cd ~/bashrc
 message=${1:-"update"}
 git add . && git commit -m "$message" && git push
 git pull
