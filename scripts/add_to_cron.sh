@@ -2,6 +2,7 @@
 
 LOCAL_USER=${1-$(logname)}
 CRON_COMMAND=$2
+FILE_NAME=${3-$(logname)} # extend to work with any file, not just CRON
 
 # 59 23 * * * python3 /home/taylor/bashrc/ext/block_hosts/block.py --on --user taylor > /home/taylor/bashrc/ext/block_hosts/BLOCK.log 2>&1 # PERSISTENT
 
@@ -38,3 +39,11 @@ fi
 
 #cd /var/spool/cron/crontabs
 #grep  'search string' *
+
+
+#
+#grep + echo should suffice:
+#grep -qxF 'include "/configs/projectname.conf"' foo.bar || echo 'include "/configs/projectname.conf"' >> foo.bar
+#-q be quiet
+#-x match the whole line
+#-F pattern is a plain string
