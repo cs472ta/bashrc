@@ -1,2 +1,0 @@
-
-0 6 * * * cd ~/bashrc && ./maintenance/update_bashrc.sh > ./cron.log 2>&1

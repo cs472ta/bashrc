@@ -2,7 +2,7 @@
 
 cron_command="0 6 * * * cd ~/bashrc && ./maintenance/update_bashrc.sh > ./cron.log 2>&1"
 
-../scripts/add_to_cron.sh $(logname) "$cron_command"
+../scripts/add_to_cron.sh "$cron_command"
 
 # Add bashrc to sources
 if [ -f ~/.bashrc ]; then
