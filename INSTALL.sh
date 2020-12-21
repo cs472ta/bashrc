@@ -65,7 +65,7 @@ chmod 755 "/home/$LOCAL_USER/bashrc/INSTALL.sh"
 # Add bashrc to sources
 if [ -f ~/.bashrc ]; then
     KEEP_EN="source /home/$LOCAL_USER/bashrc/master.sh"
-    grep -q "$KEEP_EN" /home/$LOCAL_USER/bashrc/master.sh
+    grep -q "$KEEP_EN" /home/$LOCAL_USER/bashrc/.bashrc
     if [ $? -ne 0 ]; then
         echo "source /home/$LOCAL_USER/bashrc/master.sh" >> ~/.bashrc
     fi

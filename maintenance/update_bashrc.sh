@@ -5,11 +5,11 @@ cron_command="0 6 * * * cd ~/bashrc && ./maintenance/update_bashrc.sh > ./cron.l
 ~/bashrc/scripts/add_to_cron.sh "$cron_command"
 
 # Add bashrc to sources
-if [ -f ~/.bashrc ]; then
+if [[ -f ~/.bashrc ]]; then
     KEEP_EN="source /home/$(logname)/bashrc/master.sh"
-    grep -q "$KEEP_EN" /home/$(logname)/bashrc/master.sh
-    if [ $? -ne 0 ]; then
-        echo "source /home/$(logname)/bashrc/master.sh" >> ~/.bashrc
+    grep -q "$KEEP_EN" /home/$(logname)/.bashrc
+    if [[ $? -ne 0 ]]; then
+        echo "$KEEP_EN" >> ~/.bashrc
     fi
 fi
 
