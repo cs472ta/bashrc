@@ -63,3 +63,15 @@ Boot2003* EFI Network
     # disable system restore
     # disable updates
 
+#### DISPLAY DRIVERS
+    You can install Updated and Optimized Open Graphics Drivers from PPA repository:
+
+    sudo add-apt-repository ppa:oibaf/graphics-drivers
+    sudo apt update
+    sudo apt upgrade -y
+
+
+    ## UNDO
+    $ sudo apt-get install ppa-purge
+    $ sudo ppa-purge ppa:oibaf/graphics-drivers
+
