@@ -45,6 +45,7 @@ Boot2001* EFI USB Device
 Boot2002* EFI DVD/CDROM
 Boot2003* EFI Network
 
+# Disabled Windows Update Service
 
 # 20 second timeout
 
