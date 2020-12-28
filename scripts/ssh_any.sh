@@ -11,27 +11,13 @@ echo "host: $hostname"
 echo "user: $USER"
 echo "dest network: $DEST_NETWORK" 
 echo "current network if specified: $CURRENT_NETWORK" 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" # folder of this script
 
 #on_home() { if [ ipconfig | grep 192.168.187 ]; then return 1;  else return 0;  fi } 
-
-if ! command -v ifconfig &> /dev/null
-then
-    alias ifconfig=ipconfig
-fi
-
-on_home() { 
-ip=${1-192.168.187}
-if [[ $(ipconfig | grep $1) ]]; then 
-    return 0;  
-else 
-    return 1;  
-fi;
-}
-
 #on_home() { ip=${1-168.187}; if [[ $(ipconfig | grep $ip) ]]; then     return 0; else     return 1; fi; }   
+source $DIR/on_home.sh
 
 if [ $CURRENT_NETWORK = "UNSPECIFIED" ]; then
-    echo "HERE"
 	if (on_home 192.168.187); then # on home network
     		ON_HOME=true;
 	elif (on_home 192.168.29); then
@@ -61,6 +47,8 @@ elif [ "$hostname" = 'pi3' ]; then
 	if $ON_HOME; then ssh pi@192.168.187.103; else ssh pi@fife.entrydns.org -p 57321; fi
 elif [ "$hostname" = 'pi2' ]; then
 	if $ON_HOME; then ssh pi@192.168.187.99; else ssh pi@fife.entrydns.org -p 57322; fi # 57323 for WiFi; 57322 for Eth 
+elif [ $hostname = 'pythagoras' ]; then
+    if $ON_HOME; then ssh taylor@192.168.187.2; else ssh taylor@fife.entrydns.org -p 57329; fi
 elif [ "$CURRENT_NETWORK" = 'LOCAL' ] ; then
 	echo "on local network"
 	ssh $USER@$hostname
