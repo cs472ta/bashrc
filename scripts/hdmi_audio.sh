@@ -1,4 +1,5 @@
 #!/bin/bash
+# Automatically switch to HDMI audio out when TV is connected
 
 # NAME: hotplugtv
 # PATH: /home/$USER/bin
