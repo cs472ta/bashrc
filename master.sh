@@ -362,7 +362,7 @@ wol()
     #if [ $(iwgetid -r) == "FifeNet" ];
     if on_home;
     then
-	wakeonlan 40:8D:5C:0C:3F:CA
+    	wakeonlan 40:8D:5C:0C:3F:CA
     else 
         echo "Warning: NOT ON FIFENET!"
     fi
