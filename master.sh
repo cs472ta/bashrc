@@ -541,6 +541,12 @@ alias sort_photos='~/bashrc/scripts/sort_photos.sh '
 # grub-reboot [0-INDEX index]
 alias grub_menu="cat /boot/grub/grub.cfg | grep 'menuentry '"
 
+function reboot-to-windows {
+    WINDOWS_TITLE=`grep -i "^menuentry 'Windows" /boot/grub/grub.cfg|head -n 1|cut -d"'" -f2`
+    sudo grub-set-default "$WINDOWS_TITLE"
+    sudo reboot
+}
+
 # 
 alias git_files="git rev-list --objects --all \
 | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' \
