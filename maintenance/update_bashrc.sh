@@ -13,6 +13,7 @@ if [[ -f ~/.bashrc ]]; then
     grep -q "$KEEP_EN" /home/$(logname)/.bashrc
     if [[ $? -ne 0 ]]; then
         echo "$KEEP_EN" >> ~/.bashrc
+        echo "Updating .bashrc"
     fi
 fi
 
