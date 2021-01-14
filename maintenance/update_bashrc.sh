@@ -1,5 +1,5 @@
 #!/bin/bash
-LOCAL_USER=${1-$(/usr/bin/ylogname)}
+LOCAL_USER=${1-$(/usr/bin/logname)}
 
 ## Add this to CRON -- backup the repo at 6am
 cron_command="0 6 * * * cd ~/bashrc && ./maintenance/update_bashrc.sh ${LOCAL_USER} > ./cron.log 2>&1"
