@@ -5,7 +5,7 @@ cron_command="0 6 * * * $(logname) cd ~/bashrc && ./maintenance/update_bashrc.sh
 logname=$(/usr/bin/logname)
 
 ## Backup the old CRON in the repo
-~/bashrc/scripts/add_to_cron.sh "$cron_command"
+~/bashrc/scripts/add_to_cron.sh "$cron_command" pi pi sudo
 
 ## Add bashrc to sources
 if [[ -f ~/.bashrc ]]; then
