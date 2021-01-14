@@ -9,8 +9,8 @@ logname=$(/usr/bin/logname)
 
 ## Add bashrc to sources
 if [[ -f ~/.bashrc ]]; then
-    KEEP_EN="source /home/$(logname)/bashrc/master.sh"
-    grep -q "$KEEP_EN" /home/$(logname)/.bashrc
+    KEEP_EN="source /home/${logname}/bashrc/master.sh"
+    grep -q "$KEEP_EN" /home/${logname}/.bashrc
     if [[ $? -ne 0 ]]; then
         echo "$KEEP_EN" >> ~/.bashrc
         echo "Updating .bashrc"
