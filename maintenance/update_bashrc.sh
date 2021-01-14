@@ -1,16 +1,16 @@
 #!/bin/bash
+LOCAL_USER=${1-$(/usr/bin/ylogname)}
 
 ## Add this to CRON -- backup the repo at 6am
-cron_command="0 6 * * * $(logname) cd ~/bashrc && ./maintenance/update_bashrc.sh > ./cron.log 2>&1"
-logname=$(/usr/bin/logname)
+cron_command="0 6 * * * cd ~/bashrc && ./maintenance/update_bashrc.sh ${LOCAL_USER} > ./cron.log 2>&1"
 
 ## Backup the old CRON in the repo
-~/bashrc/scripts/add_to_cron.sh "$cron_command" pi pi sudo
+~/bashrc/scripts/add_to_cron.sh "$cron_command"
 
 ## Add bashrc to sources
 if [[ -f ~/.bashrc ]]; then
-    KEEP_EN="source /home/${logname}/bashrc/master.sh"
-    grep -q "$KEEP_EN" /home/${logname}/.bashrc
+    KEEP_EN="source /home/${LOCAL_USER}/bashrc/master.sh"
+    grep -q "$KEEP_EN" /home/${LOCAL_USER}/.bashrc
     if [[ $? -ne 0 ]]; then
         echo "$KEEP_EN" >> ~/.bashrc
         echo "Updating .bashrc"

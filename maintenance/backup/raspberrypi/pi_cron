@@ -203,7 +203,3 @@ clearance_xpath="//div[contains(@class,'styles__StyledBannerTextContainer')]"
 
 
 #11,41 * * * *  cd $w_path  && python3 -u wachete.py -website https://www.imoova.com/imoova/relocations?region_id=3 -email_address 'taylornarchibald@gmail.com' -depth 0 -search_text "Salt Lake"  -email_only_on_change -task search > ./logs/imoova.log 2>&1
-
-* * * * * pi cd ~/bashrc && ./maintenance/update_bashrc.sh > ./cron.log 2>&1
-
-#* * * * * cd ~/bashrc && echo "THIS SUCKS" > ./TEST.log 2>&1
