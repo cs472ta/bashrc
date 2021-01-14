@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## Add this to CRON -- backup the repo at 6am
-cron_command="0 6 * * * cd ~/bashrc && ./maintenance/update_bashrc.sh > ./cron.log 2>&1"
+cron_command="0 6 * * * $(logname) cd ~/bashrc && ./maintenance/update_bashrc.sh > ./cron.log 2>&1"
 logname=$(/usr/bin/logname)
 
 ## Backup the old CRON in the repo
