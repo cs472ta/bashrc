@@ -1,4 +1,4 @@
-## VERY FIRST TIME
+## VERY FIRST TIME -- setup GITHUB ssh keys etc.
 
 sudo apt install openssh-server
 sudo apt install git
