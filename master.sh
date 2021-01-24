@@ -195,7 +195,7 @@ pi3_connect()
 theserve_connect()
 {
     message=${1:-"vpn"}
-    if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == *192.168.187.1* ]];
+    if on_home;
     then
 	echo "on local network..."
         ssh taylor@192.168.187.100
@@ -212,7 +212,7 @@ pi2_connect()
 {
     # Run "pi2_connect vpn" to tunnel through Pi3
     message=${1:-"vpn"}
-    if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == *192.168.187.1* ]];
+    if on_home;
     then
     echo "on local network..."
         ssh pi@192.168.187.99
