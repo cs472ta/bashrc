@@ -46,7 +46,7 @@ Boot2002* EFI DVD/CDROM
 Boot2003* EFI Network
 
 
-# 20 second timeout
+# 10 second timeout
 
 ## Prevent Windows from overwriting boot loader
     # efibootmgr
@@ -60,5 +60,26 @@ Boot2003* EFI Network
         sudo efibootmgr --bootorder ####,$$$$,&&&&,%%%%
 
     # disable system restore
-    # disable updates
 
+### Windows
+    # Disabled updates in GPEDIT
+        Hold down Windows Key + R keyboard shortcut to open the Run command.
+        Type gpedit.msc and click OK to open the Local Group Policy Editor.
+        Browse to the following path:Computer Configuration\Administrative Templates\Windows Components\Windows Update
+        On the right side, double-click the Configure Automatic Updates policy.
+
+## 12/20/2020 Updated Graphics:
+    # Check current driver    
+    lspci -nnk | grep -iA2 vga 
+
+
+    You can install Updated and Optimized Open Graphics Drivers from PPA repository:
+
+    sudo add-apt-repository ppa:oibaf/graphics-drivers
+    sudo apt update
+    sudo apt upgrade -y
+
+
+    ## To UNDO
+    $ sudo apt-get install ppa-purge
+    $ sudo ppa-purge ppa:oibaf/graphics-drivers
