@@ -45,6 +45,7 @@ Boot2001* EFI USB Device
 Boot2002* EFI DVD/CDROM
 Boot2003* EFI Network
 
+# Disabled Windows Update Service
 
 # 10 second timeout
 
@@ -73,6 +74,7 @@ Boot2003* EFI Network
     lspci -nnk | grep -iA2 vga 
 
 
+#### DISPLAY DRIVERS
     You can install Updated and Optimized Open Graphics Drivers from PPA repository:
 
     sudo add-apt-repository ppa:oibaf/graphics-drivers
@@ -83,3 +85,7 @@ Boot2003* EFI Network
     ## To UNDO
     $ sudo apt-get install ppa-purge
     $ sudo ppa-purge ppa:oibaf/graphics-drivers
+    ## UNDO
+    $ sudo apt-get install ppa-purge
+    $ sudo ppa-purge ppa:oibaf/graphics-drivers
+

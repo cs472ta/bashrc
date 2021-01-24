@@ -1,1 +1,0 @@
-source ~/bashrc/master.sh

@@ -1,0 +1,10 @@
+# Boot Ubuntu from Windows
+    https://askubuntu.com/questions/834205/edit-grub-from-windows
+    https://askubuntu.com/questions/1014467/is-there-a-way-for-grub-to-automatically-reboot-into-windows-from-windows
+
+    nano /boot/grub/grubenv
+    
+    # Change second line to be, where X is the Windows choice at boot, 0-indexed
+    set next_entry=X
+
+    # Or change to Linux

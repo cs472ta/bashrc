@@ -195,7 +195,7 @@ pi3_connect()
 theserve_connect()
 {
     message=${1:-"vpn"}
-    if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == *192.168.187.1* ]];
+    if on_home;
     then
 	echo "on local network..."
         ssh taylor@192.168.187.100
@@ -212,7 +212,7 @@ pi2_connect()
 {
     # Run "pi2_connect vpn" to tunnel through Pi3
     message=${1:-"vpn"}
-    if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == *192.168.187.1* ]];
+    if on_home;
     then
     echo "on local network..."
         ssh pi@192.168.187.99
@@ -362,7 +362,7 @@ wol()
     #if [ $(iwgetid -r) == "FifeNet" ];
     if on_home;
     then
-	wakeonlan 40:8D:5C:0C:3F:CA
+    	wakeonlan 40:8D:5C:0C:3F:CA
     else 
         echo "Warning: NOT ON FIFENET!"
     fi
@@ -540,6 +540,12 @@ alias sort_photos='~/bashrc/scripts/sort_photos.sh '
 # Tab is a subindex of an unlisted item
 # grub-reboot [0-INDEX index]
 alias grub_menu="cat /boot/grub/grub.cfg | grep 'menuentry '"
+
+function reboot-to-windows {
+    WINDOWS_TITLE=`grep -i "^menuentry 'Windows" /boot/grub/grub.cfg|head -n 1|cut -d"'" -f2`
+    sudo grub-set-default "$WINDOWS_TITLE"
+    sudo reboot
+}
 
 # 
 alias git_files="git rev-list --objects --all \
