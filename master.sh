@@ -143,6 +143,10 @@ alias push="git add . && git commit -C HEAD --amend && git push -f"
 alias pull='git reset --merge ORIG_HEAD && git pull'
 alias pullf='git reset --hard HEAD~1 && git pull'
 alias recommit='git commit --amend -m '
+# https://stackoverflow.com/questions/927358/how-do-i-undo-the-most-recent-local-commits-in-git
+alias undo_commit='git reset --soft HEAD~1'
+alias pushf='git push -f origin master'
+
 # git reset HEAD^ # uncommit
 
 git_setup(){
@@ -195,7 +199,7 @@ pi3_connect()
 theserve_connect()
 {
     message=${1:-"vpn"}
-    if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == *192.168.187.1* ]];
+    if on_home;
     then
 	echo "on local network..."
         ssh taylor@192.168.187.100
@@ -212,7 +216,7 @@ pi2_connect()
 {
     # Run "pi2_connect vpn" to tunnel through Pi3
     message=${1:-"vpn"}
-    if [[ $(route -n | grep 'UG[ \t]' | awk '{print $2}') == *192.168.187.1* ]];
+    if on_home;
     then
     echo "on local network..."
         ssh pi@192.168.187.99
