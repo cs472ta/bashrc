@@ -7,6 +7,8 @@ TheServe (Linux): 545002835
 Halicarnassus: 884050063
 Pavilion23 (Hazard): 606055001
 Moto X: 517 989 705
+Pythagoras (Ubuntu): 338014255
+Pythagoras (Windows): 582778828
 
 ## Copy SSH keys over to new machine
 	cp /path/to/my/key/id_rsa ~/.ssh/id_rsa

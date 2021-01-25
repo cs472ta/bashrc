@@ -1,0 +1,37 @@
+# AnyDesk
+    1  wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | apt-key add -
+    2  sudo wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | apt-key add
+
+# Windscribe
+    curl https://assets.staticnetcontent.com/desktop/linux/windscribe-cli_1.4-51_amd64.deb
+    sudo apt install windscribe-cli_1.4-51_amd64.deb
+
+# ZOOM
+
+
+# qBittorrent
+    sudo apt install qbittorrent
+    sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable
+    sudo apt install qbittorrent
+
+# Conda
+
+# Geckodriver
+
+# Virtual-env
+   sudo apt-get install python3-pip
+   sudo pip3 install virtualenv
+
+
+# WEB:
+    # LastPass
+    # uBlockOrigin
+    # https://github.com/iamadamdev/bypass-paywalls-chrome
+
+
+
+# Miktex
+# PyCharm
+# Plex
+# VLC
+# Notepadqq

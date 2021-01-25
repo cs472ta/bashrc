@@ -4,6 +4,7 @@
 *.xml
 *.iml
 *.swp
+cron.log
 
 # Protected information
 secure/

@@ -1,0 +1,207 @@
+# Edit this file to introduce tasks to be run by cron.
+# 
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+# 
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').# 
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+# 
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+# 
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+# 
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+MAILTO=tahlor@gmail.com
+SHELL=/bin/bash
+USER=pi
+HOME=/home/pi
+py37=/home/pi/Projects/py37/bin/activate
+python37=/home/pi/Projects/py37/bin/python
+PROJECTS=/home/pi/Projects
+
+#* * * * * env > ~/cronenv
+
+# * * * * *  command to execute
+# ┬ ┬ ┬ ┬ ┬
+# │ │ │ │ │
+# │ │ │ │ │
+# │ │ │ │ └───── day of week (0 - 7) (0 to 6 are Sunday to Saturday, or use names; 7 is Sunday, the same as 0)
+# │ │ │ └────────── month (1 - 12)
+# │ │ └─────────────── day of month (1 - 31)
+# │ └──────────────────── hour (0 - 23)
+# └───────────────────────── min (0 - 59)
+
+### ROUTER REBOOTS AT 3:50 AM
+
+### REBOOT SUNDAY AT MIDNIGHT - must do this as sudo crontab -e
+# 0 0 * * 0   root    reboot
+
+#disable wifi - this should be done somewhere else - sudo nano /boot/config.txt
+#@reboot sudo ifdown wlan0 
+
+## MAKE SURE YOU SPECIFY PYTHON 3 if needed
+## MAKE SURE YOU USE 24 HOUR TIME!!
+
+### E-control
+@reboot sleep 20 && cd /home/pi/Projects/broadlink && python3 -u server.py     > ./cron.log 2>&1
+@reboot sleep 90 && cd /home/pi/Projects/broadlink && python3 -u scheduler.py  > ./cron.log 2>&1
+
+# Podcasts
+@reboot sleep 120 && cd /home/pi/Projects/podcast && python3 -u podcast_server.py  > ./cron_server.log 2>&1
+@reboot sleep 250 && cd /home/pi/Projects/podcast && python3 -u podcast_library.py > ./cron_library.log 2>&1
+
+# NO VPN
+@reboot sleep 20 && /usr/bin/windscribe disconnect > ./vpn_cron.log 2>&1
+#* * * * * source /home/pi/.bashrc; unvpn > ./vpn_cron.log 2>&1    
+
+
+# Get environments
+# * * * * * cd /home/pi/Projects/podcast && python3 --version > ./cron.log 2>&1 # v3.7.3
+# * * * * *  . $py37; cd $PROJECTS/calendar; which python > ./cron2.log 2>&1
+#* * * * *  cd "$HOME/Projects/calendar"; echo $HOME > ./cron3.log 2>&1
+
+# Calendar
+30 5 * * 4  cd "$HOME/Projects/calendar"; $python37 "Create Birthday Calendar.py" > ./birthday_cron.log 2>&1
+39 4 * * *  cd "$HOME/Projects/calendar"; $python37 Freeday.py > ./cron.log 2>&1
+
+# YouTube
+55 04 * * * cd /home/pi/Projects/youtube && python3 -u update.py > ./cron.log 2>&1
+
+# Update Calendars (e.g. POAP)
+55 03  * * 0  cd /home/pi/Projects/AmazonPriceCheck/calendar && python3 main.py > ./cron.log 2>&1
+
+# Daily at 3:15am - Visit StackExchange - paused for now
+# 15 03  * * *  cd /home/pi/Projects/stack_exchange/ && python3 /home/pi/Projects/stack_exchange/final.py
+
+# Daily at 9:15am - Check YTIX
+15 09  * * *  cd /home/pi/Projects/AmazonPriceCheck/ && python3 ./YTixCheck.py 
+
+# Daily at 10am, 1pm, 4pm, 7pm, 10pm
+#29 10,13,16,19,22 * * * cd "/home/pi/Projects/BYU_Login/Selenium" && python3 "./Check BYU grades.py"
+
+# Weekly Tuesday at 12:34pm - NATION STATES
+34 12  * * 2  cd /home/pi/Projects/stack_exchange/nation_states && python3 /home/pi/Projects/stack_exchange/nation_states/nation_states.py
+
+# CS Colloquia - included in RUN.py
+00 8 * * * cd /home/pi/Projects/AmazonPriceCheck/generic && python3 check_site.py -name "Colloquium" -website "https://cs.byu.edu/colloquia/59744" -detect_change -xpath "//div[@class='content']/table/tbody"
+
+
+# Walmart - repeat etc
+# python3 ./check_site.py -name "Walmart" -website "https://www.walmart.com/ip/47419191" -detect_change -xpath "//div/span[@class='display-inline-block-xs prod-PaddingRight--xs valign-top']"  -hours_to_repeat 24 -minutes_interval 1 -headless
+
+# KSL - using Selenium
+#5 8,9,10,11,12,13,14,15,16,17,18,19,20,21 * * *  cd /home/pi/Projects/AmazonPriceCheck/generic && python3 -u RUN.py  > ./cron.log 2>&1
+@reboot  cd /home/pi/Projects/AmazonPriceCheck/generic/KSL && python3 -u scheduler.py  > ./cron.log 2>&1
+
+# Piano
+#5  8,9,10,11,12,13,14,15,16,17,18,19,20,21 * * *  cd /home/pi/Projects/AmazonPriceCheck/generic && python3 -u piano.py  > ./cron.log 2>&1
+#35 8,9,10,11,12,13,14,15,16,17,18,19,20,21 * * *  cd /home/pi/Projects/AmazonPriceCheck/generic && python3 -u piano.py  > ./cron.log 2>&1
+
+#07 9,12,15,18 * * *  cd /home/pi/Projects/AmazonPriceCheck/generic && python3 check_site_ksl.py  -use -name "KSL_Swing_set" -website "https://classifieds.ksl.com/search/index?sort=0&keyword=swing+set&zip=84606&miles=50&priceFrom=&priceTo=200&marketType%5B%5D=Sale" -detect_new -xpath "//div[@class='listing-group type-listing']" -headless -email krystaleearchibald@gmail.com
+#16 22 * * * cd /home/pi/Projects/AmazonPriceCheck/generic && python3 -u RUN.py  > ./cron.log 2>&1
+
+# Millionaire's Pot - MAM
+04 00  * * 0,2,5  cd /home/pi/Projects/stack_exchange/mam && python3 /home/pi/Projects/stack_exchange/mam/millionaire.py 
+
+# Test Cron
+# * * * * *   /pi/bin/env > /home/pi/cron/cron-env
+
+# Register for HGTV
+#15 1 * * * cd "/home/pi/Projects/AmazonPriceCheck/generic/register" && python3 hgtv.py  > ./cron.log 2>&1
+
+## Update IP
+#35 * * * * . /home/pi/.bashrc && update_vpn_ip
+
+## Wachete - 
+# 09 04 * * * 
+w_path=/home/pi/Projects/AmazonPriceCheck/wachete
+test="-task archive -depth 0 -website  http://blautoenterprises.com/197-2/"
+test2="-task archive -depth 0 -website http://www.carsforlessflorida.com/postsale.htm"
+
+# dhazard@kernhigh.org
+09 04  * * *  cd $w_path  && python3 -u wachete.py -website http://proraftingtours.com -email_address '' -depth 2 -email_only_on_change > ./logs/cron_proraft.log 2>&1
+
+# Natural History Museum
+30 9  * * *  cd $w_path  && python3 -u wachete.py -website https://nhmu.utah.edu/free-days-nhmu -email_address 'taylornarchibald@gmail.com' -depth 0 -email_only_on_change > ./logs/cron_nhmu.log 2>&1
+
+
+whitney="https://www.recreation.gov/api/permits/233260/availability/month?start_date=2020-06-01T00:00:00.000Z&commercial_acct=false&is_lottery=false"
+yosemite="https://www.recreation.gov/api/camps/availability/campground/232447/month?start_date=2020-09-01T00%3A00%3A00.000Z"
+# must be the 1st of the month
+
+#*/1 * * * * cd $w_path  && python3 -u wachete.py -website $whitney -email_address 'taylornarchibald@gmail.com' -depth 0 -email_only_on_change > ./logs/cron_whitney.log 2>&1
+#*/1 * * * *  cd $w_path  && python3 -u wachete.py -website $yosemite -email_address 'taylornarchibald@gmail.com' -depth 0 -email_only_on_change > ./logs/cron_yosemite.log 2>&1
+
+
+#sams_club_hours="https://www.samsclub.com/club/provo-ut-sams-club/6685?xid=locator_club-details_tooltip_club-hours#club-events-info"
+#30 7 * * * cd $w_path  && python3 -u wachete.py -website $sams_club_hours -email_address 'taylornarchibald@gmail.com' -depth 0 -email_only_on_change -search_xpath "//div[@class='sc-club-hours-list-sections']" > ./logs/cron_sams.log 2>&1
+#30 7 * * * cd $w_path  && python3 -u wachete.py -website $sams_club_hours -selenium -email_address 'taylornarchibald@gmail.com' -depth 0 -email_only_on_change -search_xpath "//table[@class='sc-club-hours-section'][7]" > ./logs/cron_sams.log 2>&1
+
+# Amazon EBT
+#amazon_ebt=" -website https://www.amazon.com/b?node=19097785011&ref_=omps_surl -search_text ~Texas Utah -email_address 'taylornarchibald@gmail.com' -depth 0 -email_only_on_change -task search        "
+#05 05 * * *  cd $w_path  && python3 -u wachete.py $amazon_ebt > ./logs/amazon_ebt_cron.log 2>&1
+
+# Download Manheim
+#32 5 * * 6 cd "/home/pi/Projects/AmazonPriceCheck/generic/car_sales" && python3 manheim.py > ./cron.log 2>&1
+31 4  * * 1  cd $w_path  && python3 -u wachete.py $test > ./logs/cron_test.log 2>&1
+32 4  * * 1  cd $w_path  && python3 -u wachete.py $test2 > ./logs/cron_test2.log 2>&1
+
+# 0 12,14,16,18,20 * * * cd ~/Projects/AmazonPriceCheck/consignment && python3 consignment.py > ./cron.log 2>&1
+
+### Login to Pi2 and run qbittorrent commands
+        #QBITTORRENT=/home/pi/Projects/vpn/qbittorrent/
+        #30 23 * * *      ssh pi@pi2.lan -t "cd $QBITTORRENT && python3 controller.py --backup >> ./cron.log 2>&1"
+        #* * * * *        ssh pi@pi2.lan -t "cd $QBITTORRENT && python3 controller.py --log    >> ./cron.log 2>&1" > /home/pi/QBT.LOG 2>&1
+        #* * * * *        /bin/bash -l -c 'ssh pi@pi2.lan -t "cd /home/pi/Projects/vpn/qbittorrent/ && /usr/bin/qbt torrent list      >> ./cron2.log 2>&1" > /home/pi/QBT.LOG 2>&1'
+
+    # Resume torrents periodically
+        #30 6,12,18 * * * ssh pi@pi2.lan -t "cd $QBITTORRENT && python3 controller.py --resume >> ./cron.log 2>&1"
+        #* * * * *        ssh pi@pi2.lan -t "touch /home/pi/CANTTOUCHTHIS"
+
+
+# JERUSALEM
+30 8 * * * cd $w_path  &&  python3 -u wachete.py -website "https://jerusalemcenter.ce.byu.edu/info" -email_address 'dinosaurswhosneeze@gmail.com' -depth 0 -email_only_on_change -search_xpath "//div[@class='field-item even']" > ./logs/jerusalem.log 2>&1
+
+
+# Eddie Bauer
+#13 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22 * * * cd $w_path  &&  python3 -u wachete.py -name EB_squatch -website "https://www.eddiebauer.com/p/13302448/mens-graphic-t-shirt---squatch?sp=1&rrec=true" -email_address 'taylornarchibald@gmail.com' -depth 0 -email_only_on_change -search_xpath "//div[@class='options options_wrapper']" > ./squatch.log 2>&1
+
+#"https://www.eddiebauer.com/p/38832174/men's-bc-downlight(r)-down-jacket?sp=1"
+jacket="https://www.eddiebauer.com/p/38832174"
+13,43 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22 * * * cd $w_path  &&  python3 -u wachete.py -name EB_BC_jacket -website $jacket -email_address 'taylornarchibald@gmail.com' -depth 0 -email_only_on_change -search_xpath "//div[@class='options options_wrapper']" > ./logs/eb_jacket_bc.log 2>&1
+
+# https://www.eddiebauer.com/p/10112367/men's-cirruslite-spring-down-jacket?sp=3
+jacket2="https://www.eddiebauer.com/p/10112367"
+14,44 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22 * * * cd $w_path  &&  python3 -u wachete.py -name EB_jacket -website $jacket -email_address 'taylornarchibald@gmail.com' -depth 0 -email_only_on_change -search_xpath "//div[@class='options options_wrapper']" > ./logs/eb_jacket.log 2>&1
+
+#hat="https://www.eddiebauer.com/p/71600292"
+clearance="https://www.eddiebauer.com/content/clearance"
+clearance_xpath="//div[contains(@class,'styles__StyledBannerTextContainer')]"
+
+51 0,1,7,8,9,12,16,21,22,23 * * * cd $w_path  &&  python3 -u wachete.py -name EB_clearance -website $clearance -email_address 'taylornarchibald@gmail.com' -depth 0 -email_only_on_change -search_xpath "$clearance_xpath" > ./logs/eb_clearance.log 2>&1
+
+
+# IFa
+#21 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22 * * * cd $w_path  &&  python3 -u wachete.py -website https://ifacountrystores.com/specials/  -email_address 'taylornarchibald@gmail.com' -depth 0 -email_only_on_change > ./logs/cron_ifa.log 2>&1
+
+
+## LEGO
+#55 0 * * *  export DISPLAY=:10.0 && cd /home/pi/Projects/AmazonPriceCheck/generic/lego && python3 run.py -email leslie@piregistry.net  >> ./cron_leslie.log 2>&1
+#30 2 * * *  export DISPLAY=:10.0 && cd /home/pi/Projects/AmazonPriceCheck/generic/lego && python3 run.py  -email maria@piregistry.net  >> ./cron_maria.log 2>&1
+
+# Make sure display is active before running LEGO!!!
+#20 0 * * *  /usr/bin/vncserver :10 
+
+
+#11,41 * * * *  cd $w_path  && python3 -u wachete.py -website https://www.imoova.com/imoova/relocations?region_id=3 -email_address 'taylornarchibald@gmail.com' -depth 0 -search_text "Salt Lake"  -email_only_on_change -task search > ./logs/imoova.log 2>&1
+
+0 6 * * * cd ~/bashrc && ./maintenance/update_bashrc.sh  > ./cron.log 2>&1

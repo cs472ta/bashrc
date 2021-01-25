@@ -1,0 +1,91 @@
+# Power Management
+    # Observe power usage
+    sudo apt install powertop
+    sudo powertop
+
+    # Low power
+    sudo apt install pm-utils
+    
+    #In order to enter low power mode, run this:
+    sudo pm-powersave true
+    #In order to leave low power mode, run this:
+    sudo pm-powersave false
+
+
+# Procedure with no screen:
+    Reboot with little button
+    Down x2, enter (choose boot device)
+    Down x2, enter (SanDisk, when plugged into right side)
+    Enter ("Try Ubuntu")
+
+Should be able to plug in if it boots
+May not be down x2
+
+
+## BOOT ORDER (today):
+cat /boot/grub/grub.cfg | grep 'menuentry '
+
+Pythagoras:
+menuentry 'Ubuntu' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-0c3cc005-489a-42d6-8f87-103ce522befb' {
+	menuentry 'Ubuntu, with Linux 5.4.0-58-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-5.4.0-58-generic-advanced-0c3cc005-489a-42d6-8f87-103ce522befb' {
+	menuentry 'Ubuntu, with Linux 5.4.0-58-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-5.4.0-58-generic-recovery-0c3cc005-489a-42d6-8f87-103ce522befb' {
+	menuentry 'Ubuntu, with Linux 5.4.0-42-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-5.4.0-42-generic-advanced-0c3cc005-489a-42d6-8f87-103ce522befb' {
+	menuentry 'Ubuntu, with Linux 5.4.0-42-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-5.4.0-42-generic-recovery-0c3cc005-489a-42d6-8f87-103ce522befb' {
+menuentry 'Windows Boot Manager (on /dev/sda2)' --class windows --class os $menuentry_id_option 'osprober-efi-D630-381F' {
+menuentry 'UEFI Firmware Settings' $menuentry_id_option 'uefi-firmware' {
+
+taylor@pythagoras:~/bashrc$ efibootmgr
+BootCurrent: 0000
+Timeout: 0 seconds
+BootOrder: 0000,0002,0001,2001,2002,2003
+Boot0000* ubuntu
+Boot0001* Linpus lite
+Boot0002* Windows Boot Manager
+Boot2001* EFI USB Device
+Boot2002* EFI DVD/CDROM
+Boot2003* EFI Network
+
+# Disabled Windows Update Service
+
+# 10 second timeout
+
+## Prevent Windows from overwriting boot loader
+    # efibootmgr
+        efibootmgr
+            There are also stars* beside some, if not all, of the entries, marking them active.
+            Look at the 4 digit boot number next to Windows entry and run
+
+        sudo efibootmgr --bootnum #### --inactive
+            This will deactivate Windows entry. Also, make sure that now deactivated Windows has higher priority if it doesn't already:
+
+        sudo efibootmgr --bootorder ####,$$$$,&&&&,%%%%
+
+    # disable system restore
+
+### Windows
+    # Disabled updates in GPEDIT
+        Hold down Windows Key + R keyboard shortcut to open the Run command.
+        Type gpedit.msc and click OK to open the Local Group Policy Editor.
+        Browse to the following path:Computer Configuration\Administrative Templates\Windows Components\Windows Update
+        On the right side, double-click the Configure Automatic Updates policy.
+
+## 12/20/2020 Updated Graphics:
+    # Check current driver    
+    lspci -nnk | grep -iA2 vga 
+
+
+#### DISPLAY DRIVERS
+    You can install Updated and Optimized Open Graphics Drivers from PPA repository:
+
+    sudo add-apt-repository ppa:oibaf/graphics-drivers
+    sudo apt update
+    sudo apt upgrade -y
+
+
+    ## To UNDO
+    $ sudo apt-get install ppa-purge
+    $ sudo ppa-purge ppa:oibaf/graphics-drivers
+    ## UNDO
+    $ sudo apt-get install ppa-purge
+    $ sudo ppa-purge ppa:oibaf/graphics-drivers
+
