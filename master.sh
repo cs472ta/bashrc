@@ -134,6 +134,10 @@ alias push="git add . && git commit -C HEAD --amend && git push -f"
 alias pull='git reset --merge ORIG_HEAD && git pull'
 alias pullf='git reset --hard HEAD~1 && git pull'
 alias recommit='git commit --amend -m '
+# https://stackoverflow.com/questions/927358/how-do-i-undo-the-most-recent-local-commits-in-git
+alias undo_commit='git reset --soft HEAD~1'
+alias pushf='git push -f origin master'
+
 # git reset HEAD^ # uncommit
 
 git_setup(){
