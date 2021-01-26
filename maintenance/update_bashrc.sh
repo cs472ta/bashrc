@@ -4,6 +4,9 @@ LOCAL_USER=${1-$(/usr/bin/logname)}
 ## Add this to CRON -- backup the repo at 6am
 cron_command="0 6 * * * cd ~/bashrc && ./maintenance/update_bashrc.sh ${LOCAL_USER} > ./cron.log 2>&1"
 
+chmod 755 ~/bashrc/maintenance/run_once.sh
+~/bashrc/maintenance/run_once.sh
+
 ## Backup the old CRON in the repo
 ~/bashrc/scripts/add_to_cron.sh "$cron_command"
 

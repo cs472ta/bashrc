@@ -466,8 +466,15 @@ replace() { # don't use * in specifying extension because it expands too soon
 
 ### Bash Tips:
 
-# Rename files (find/replace)
+## Rename files (find/replace)
 # rename 's/find/replace/' *
+
+## Find files
+# find . -name *.py
+
+## Replace in file:
+# sed -i 's~icdar~ICDAR~g' ./TEST.json
+
 
 if on_home 192.168.188.1; then
 	echo "WARNING: Connected to ARCHINET"
