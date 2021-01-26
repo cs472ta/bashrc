@@ -12,3 +12,6 @@ cat ~/.ssh/id_rsa.pub | xclip -sel clip
 # https://github.com/settings/keys
 
 git clone git@github.com:tahlor/bashrc
+
+OR IF NOT UPDATING:
+git clone https://github.com/tahlor/bashrc

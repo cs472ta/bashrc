@@ -530,6 +530,10 @@ alias latexdiff="/home/${USER}/bashrc/scripts/latex/latexdiff/latexdiff "
 alias taylor_ssh="ssh taylorar@taylorarchibald.com " # add ssh keys here https://domains.byu.edu/dashboard/
 alias taylor_sftp="sftp -P 22 taylorar@taylorarchibald.com "
 
+# AXON
+alias axon_admin="ssh administrator@axon.cs.byu.edu"
+alias axon="ssh tarchibald@axon.cs.byu.edu"
+
 # Latex
 alias latexdiff='~/bashrc/ext/latex/compare_files.sh '
 
