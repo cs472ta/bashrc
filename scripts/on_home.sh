@@ -1,6 +1,7 @@
 #!/bin/bash
 
 on_home() { 
+    # USE ./get_os.sh
     if ! command -v ifconfig &> /dev/null
     then
         ifconfig() { ipconfig ;}
