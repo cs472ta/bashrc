@@ -25,3 +25,6 @@ w_path="/home/pi/Projects/AmazonPriceCheck/wachete"
 
 PATH=$PATH
 alias pi3d="cd /home/pi/Flash128/Downloads"
+
+alias podcast='cd ~/Projects/podcast'
+alias rescan_podcast='podcast && python podcast_library.py'
