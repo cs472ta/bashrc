@@ -9,6 +9,9 @@ PROMPT_COMMAND='history -a'
 # Path
 export "PATH=$PATH:~/bashrc/bin" # add standard command binaries
 
+# Get OS
+if [ "$(~/bashrc/scripts/get_os.sh)" == 'MS Windows' ]; then OS="Windows"; else OS="Linux"; fi
+
 
 ## Get netowrk
 #on_home() { ~/bashrc/scripts/on_home.sh $1; }
@@ -27,14 +30,22 @@ export "ssh_option=$ssh_option"
 
 # Script to install bashrc to bashrc
 # Computer specific paths
-host_rc="/home/${USER}/bashrc/configs/${HOSTNAME}.sh"
+if [ "${OS}" == "Windows" ]; then host_rc="~/bashrc/configs/${HOSTNAME}-Windows.sh"; else host_rc="/home/${USER}/bashrc/configs/${HOSTNAME}.sh"; fi;
+echo "$host_rc"
+
 super_rc="/home/${USER}/bashrc/super/secure.sh"
 secure_rc="/home/${USER}/bashrc/secure.sh"
 
+if [ "${OS}" == "Windows" ]; then
+    if ( eval test -f $host_rc ); then eval source $host_rc; fi
+    if ( eval test -f $super_rc ); then eval source "$super_rc"; fi     
+    if ( eval test -f $secure_rc ); then eval source "$secure_rc"; fi
+else
+    if test -f $host_rc; then source "$host_rc"; echo "found $host_rc"; fi
+    if test -f $super_rc; then source "$super_rc"; fi
+    if test -f $secure_rc; then source "$secure_rc"; fi
+fi;
 
-if test -f "$host_rc"; then source "$host_rc"; fi
-if test -f "$super_rc"; then source "$super_rc"; fi
-if test -f "$secure_rc"; then source "$secure_rc"; fi
 
 vpn_path=/home/${USER}/bashrc/scripts/vpn
 if [ -f "$vpn_path" ]; then
