@@ -1,0 +1,17 @@
+## BLOCK A MAC ADDRESS
+    iptables -I FORWARD -m mac --mac-source 14:30:C6:BA:EF:AC -j DROP
+    
+    ## Delete that rule, use "D" (A adds or I adds?)
+    iptables -D FORWARD -m mac --mac-source 14:30:C6:BA:EF:AC -j DROP
+    
+## See rules for MAC
+    iptables --list | grep EF:AC
+    
+    # See by line number
+    iptables -L [INPUT/FORWARD/etc.] --line-numbers
+    
+    # Drop line number 14
+     iptables -D [INPUT/FORWARD/etc.] 14
+     
+     
+     iptables -L FORWARD --line-numbers

@@ -127,7 +127,13 @@ alias search="find . -type d,f -name " # Find a file or directory
 
 
 alias docker="sudo docker "
-alias np="notepadqq "
+
+if [ "$OS" == "Linux" ]; then
+    alias np="notepadqq ";
+else
+    alias np="eval '/c/Program\ Files\ \(x86\)/Notepad++/notepad++.exe' "
+fi;
+
 alias res="/media/SuperComputerGroups/fslg_hwr/taylor_simple_hwr/RESULTS"
 alias watch="/usr/bin/watch -n .3"
 
@@ -279,7 +285,7 @@ alias pi2remote="ssh -J pi@fife.entrydns.org:57321,pi@192.168.187.99  pi@192.168
 check_port() { netstat -vanp --tcp | grep $1; }
 
 
-alias router="ssh root@192.168.187.1"
+alias router="ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 root@192.168.187.1"
 alias theserve="theserve_connect "
 
 ## Can't use positional arguments with alias!
@@ -393,7 +399,6 @@ alias wol_brodie="wakeonlan 70:85:c2:b9:19:73"
 
 alias byu_vpn="openvpn3 session-start --config /home/${USER}/taylors_scripts/openvpn/client.ovpn"
 alias byu_vpn="openvpn3 session-start --config client.ovpn"
-alias np=notepadqq
 alias java8="/usr/lib/jvm/java-8-openjdk-amd64/bin/java "
 alias set_java8='sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64'
 alias set_java11='sudo update-java-alternatives --set /usr/lib/jvm/java-1.11.0-openjdk-amd64'
